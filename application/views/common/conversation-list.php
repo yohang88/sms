@@ -5,11 +5,11 @@
             <div class="avatar"><img/></div>
             <div class="reply">
                 <div class="date"><?php echo $message->sent; ?></div>
-                <div class="author"><?php echo $message->sender; ?></div>
+                <div class="author"><?php echo $this->contact->getDetail($message->sender)->name; ?></div>
                 <div class="text"><?php echo $message->text; ?></div>
                 <div class="status-icon">
                     <?php if($message->received != NULL && $message->type == 'SENT'): ?>
-                        <i class="icon-checkmark"></i>
+                        <i class="icon-checkmark" title="Tersampaikan pada <?php echo $message->received ?>"></i>
                     <?php endif; ?>
                 </div>
             </div>

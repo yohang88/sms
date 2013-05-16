@@ -1,5 +1,9 @@
+<?php
+    $messages_count = count($messages);
+    if($messages_count > 0):
+?>
 <form>
-<table class="bordered striped message-list">
+<table class="bordered striped hovered message-list">
     <thead>
         <tr>
             <th>Pengirim</th>
@@ -16,16 +20,22 @@
                 case 'sent';
                     $number = $message->receiver;
                     break;
+                case 'scheduled';
+                    $number = $message->receiver;
+                    break;                    
                 case 'received';
                     $number = $message->sender;
                     break;
+               case 'queue';
+                    $number = $message->sender;
+                    break;                    
             }
         ?>
-        <tr>
-            <td><?php echo $number; ?></td>
-            <td class="right"><?php echo $message->sent; ?></td>
+        <tr onclick="alert('test')">
+            <td width="150px"><?php echo $this->contact->getDetail($number)->name; ?></td>
+            <td width="150px" class="right"><?php echo nice_date($message->sent); ?></td>
             <td><?php echo substr($message->text, 0, 40); ?></td>
-            <td><a class="button" href="<?php echo site_url('conversation/view/'.$number) ?>">Lihat</a></td>
+            <td width="150px"><a class="button mini" href="<?php echo site_url('conversation/view/'.$number) ?>">Lihat</a></td>
         </tr>
     <?php endforeach; ?>
     </tbody>
@@ -43,3 +53,13 @@
         <li class="last"><a></a></li>
     </ul>
 </div>
+<?php else: ?>
+<div class="notices">
+    <div class="bg-color-green">
+        <a href="#" class="close"></a>
+        <div class="notice-image"> <i class="icon-flag-2 fg-color-white"></i> </div>
+        <div class="notice-header fg-color-yellow"> Tidak Ada Pesan </div>
+        <div class="notice-text"> Tidak ada pesan dalam kotak </div>
+    </div>
+</div>
+<?php endif; ?>

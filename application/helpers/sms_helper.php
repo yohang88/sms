@@ -22,23 +22,23 @@ function nice_date($str, $option=NULL)
     $timestamp = mktime($hour, $minute, $second, $month, $day, $year);
     $now = time();
     $blocks = array(
-    array('name'=>lang('kalkun_year'), 'amount' => 60*60*24*365),
-    array('name'=>lang('kalkun_month'), 'amount' => 60*60*24*31),
-    array('name'=>lang('kalkun_week'), 'amount' => 60*60*24*7),
-    array('name'=>lang('kalkun_day'), 'amount' => 60*60*24),
-    array('name'=>lang('kalkun_hour'), 'amount' => 60*60),
-    array('name'=>lang('kalkun_minute'), 'amount' => 60),
-    array('name'=>lang('kalkun_second'), 'amount' => 1)
+    array('name'=>'tahun', 'amount' => 60*60*24*365),
+    array('name'=>'bulan', 'amount' => 60*60*24*31),
+    array('name'=>'minggu', 'amount' => 60*60*24*7),
+    array('name'=>'hari', 'amount' => 60*60*24),
+    array('name'=>'jam', 'amount' => 60*60),
+    array('name'=>'menit', 'amount' => 60),
+    array('name'=>'detik', 'amount' => 1)
     );
 
-    if($timestamp > $now) $string_type = ' remaining';
-    else $string_type = ' '.lang('kalkun_ago');
+    if($timestamp > $now) $string_type = ' lagi';
+    else $string_type = ' yang lalu';
 
     $diff = abs($now-$timestamp);
 
     if($diff < 60)
     {
-        return "Less than a minute ago";
+        return "Kurang dari satu menit yang lalu";
     }
     else
     {

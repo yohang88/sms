@@ -3,17 +3,37 @@
                 $('#draggableDialog').click(function(e) {
                     $.Dialog({
                         'title'      : 'My draggable dialog',
-                        'content'    : 'This content can be in HTML.<br />You can add custom function to your buttons!<br /><br /><b>Features:</b><ul><li>Easy to use!</li><li>Customizable</li><li>Powerful!</li></ul>',
+                        'content'    : $('#dialog-compose').html(),
                         'draggable'  : true,
                         'buttonsAlign': 'right',
                         'buttons'    : {
-                            'Ok'    : {
+                            'Kirim'    : {
                                 'action': function(){}
-                            }
+                            },
+                            'Keluar'    : {
+                                'action': function(){}
+                            }                            
                         }
                     });
                 });
             });
         </script>
+      
+        <div id="dialog-compose" style="display:none">
+            <div class="span7">
+                <?php echo form_open('compose/send'); ?>
+                <div class="input-control text">
+                    <input name="number" type="phone" placeholder="Nomor Telepon" />
+                    <button class="btn-clear"></button>
+                </div>
+                <div class="input-control textarea">
+                    <textarea name="text" placeholder="Isi Pesan"></textarea>
+                </div>
+
+
+   
+                <?php echo form_close() ?>
+            </div>
+        </div>
     </body>
 </html>

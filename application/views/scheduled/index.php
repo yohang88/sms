@@ -6,7 +6,7 @@
     <div class="page secondary">
         <div class="page-header">
             <div class="page-header-content">
-                <h1>Kotak Keluar<small>sms antrian keluar</small></h1>
+                <h1>Pengiriman Terjadwal<small>sms keluar</small></h1>
                 <i class="page-icon icon-enter"></i>
             </div>
         </div>

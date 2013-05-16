@@ -30,23 +30,32 @@ class Message extends CI_Model {
 
     public function listMessage($type)
     {
-        switch($type) {
-            case 'sent':
-                $group = 'receiver';
-                break;
+        if($type == 'sent' || $type == 'received') {
+            switch($type) {
+                case 'sent':
+                    $group = 'receiver';
+                    break;
 
-            case 'received':
-                $group = 'sender';
-                break;
+                case 'received':
+                    $group = 'sender';
+                    break;
+            }
+
+            $sql = "
+                SELECT t1.* FROM sms_log t1
+                JOIN (SELECT MAX(id) id FROM sms_log WHERE type = '".$type."' GROUP BY `".$group."`) t2
+                ON t1.id = t2.id
+                WHERE type = '".$type."'
+                ORDER BY id DESC
+            ";
+
+        } elseif($type == 'queue' || $type == 'scheduled') {
+            $sql = "
+                SELECT * FROM sms_log
+                WHERE type = '".$type."'
+                ORDER BY id DESC
+            ";
         }
-
-        $sql = "
-            SELECT t1.* FROM sms_log t1
-            JOIN (SELECT MAX(id) id FROM sms_log GROUP BY `".$group."`) t2
-            ON t1.id = t2.id
-            WHERE type = '".$type."'
-            ORDER BY id DESC
-        ";
 
         /*
         $this->db->select('*');
@@ -70,7 +79,7 @@ class Message extends CI_Model {
         $sql = "
             SELECT *
             FROM sms_log
-            WHERE receiver = '".$with."' OR sender = '".$with."'
+            WHERE (`receiver` = '".$with."' OR `sender` = '".$with."') AND (`type` NOT IN ('SCHEDULED', 'QUEUE'))
             ORDER BY id DESC
         ";
 
