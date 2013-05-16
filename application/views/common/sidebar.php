@@ -4,7 +4,7 @@
             <a href="<?php echo site_url('home'); ?>"><i class="icon-home"></i> Beranda</a>
         </li>
         <li>
-            <a href="<?php echo site_url('compose'); ?>"><i class="icon-mail"></i> Kirim Baru</a>
+            <a id="draggableDialog"><i class="icon-mail"></i> Kirim Baru</a>
         </li>
         <li>
             <a href="<?php echo site_url('inbox'); ?>"><i class="icon-enter"></i> Kotak Masuk</a>
