@@ -9,6 +9,41 @@
   font-size: 32pt;
   color: #ffffff;
 }
+.metrouicss ul.conversation {
+  margin: 0;
+}
+.metrouicss ul.conversation li {
+  margin: 0;
+  width: 100%;
+  margin-bottom: 1px;
+}
+.metrouicss ul.conversation li.sent {
+  background-color: #eff4ff;
+}
+.metrouicss ul.conversation li.sent div .date,
+.metrouicss ul.conversation li.sent div .author,
+.metrouicss ul.conversation li.sent div .text {
+  color: #000000;
+}
+.metrouicss ul.conversation li.sent div .date:hover,
+.metrouicss ul.conversation li.sent div .author:hover,
+.metrouicss ul.conversation li.sent div .text:hover {
+  color: #000000;
+}
+.metrouicss ul.conversation li.received {
+  background-color: #99b433;
+}
+.metrouicss ul.conversation li div > .avatar {
+  background-color: #eee;
+}
+.metrouicss ul.conversation li div > .text {
+  margin-bottom: 20px;
+}
+.metrouicss ul.conversation li div > .status-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+}
 .metrouicss .input-control.checkbox {
   margin: 0;
 }

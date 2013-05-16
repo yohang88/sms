@@ -37,6 +37,37 @@
         }
     }
 
+    ul.conversation {
+        margin: 0;
+
+        li {
+            margin: 0;
+            width: 100%;
+            margin-bottom: 1px;
+            &.sent {
+                background-color: @blueLight;
+                div > {
+                    .date, .author, .text { color: @black };
+                    .date:hover, .author:hover, .text:hover { color: @black };
+                }
+            }
+            &.received {
+                background-color: @greenLight;
+            }
+            div > .avatar {
+                background-color: #eee;
+            }
+            div > .text {
+                margin-bottom: 20px;
+            }
+            div > .status-icon {
+                position: absolute;
+                right: 10px;
+                bottom: 5px;
+            }
+        }
+    }
+
     .input-control.checkbox  {
         margin: 0;
 
