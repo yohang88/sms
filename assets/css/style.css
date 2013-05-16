@@ -1,0 +1,28 @@
+.metrouicss .page {
+  width: 940px;
+  margin: 0 auto;
+}
+.metrouicss .page .page-header .page-header-content .page-icon {
+  position: absolute;
+  top: 34px;
+  left: 30px;
+  font-size: 32pt;
+  color: #ffffff;
+}
+.metrouicss .input-control.checkbox {
+  margin: 0;
+}
+#nav {
+  background-color: #1e7145;
+}
+#nav .nav-bar {
+  background-color: #1e7145;
+}
+#header {
+  background-color: #99b433;
+  margin-bottom: 20px;
+}
+#header h1,
+#header a {
+  color: #ffffff;
+}
