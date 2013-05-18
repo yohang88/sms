@@ -1,46 +1,37 @@
 <?php
+    $c = $this->uri->segment(1);
     $messages_count = count($messages);
     if($messages_count > 0):
 ?>
 <form>
-<table class="bordered striped hovered message-list">
-    <thead>
-        <tr>
-            <th>Pengirim</th>
-            <th class="right" width="180">Waktu</th>
-            <th>Isi Pesan</th>
-            <th></th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <?php foreach($messages as $message): ?>
-        <?php
-            switch($type) {
-                case 'sent';
-                    $number = $message->receiver;
-                    break;
-                case 'scheduled';
-                    $number = $message->receiver;
-                    break;                    
-                case 'received';
-                    $number = $message->sender;
-                    break;
-               case 'queue';
-                    $number = $message->sender;
-                    break;                    
-            }
-        ?>
-        <tr onclick="alert('test')">
-            <td width="150px"><?php echo $this->contact->getDetail($number)->name; ?></td>
-            <td width="150px" class="right"><?php echo nice_date($message->sent); ?></td>
-            <td><?php echo substr($message->text, 0, 40); ?></td>
-            <td width="150px"><a class="button mini" href="<?php echo site_url('conversation/view/'.$number) ?>">Lihat</a></td>
-        </tr>
+    <div class="messagelist-holder">
+    <?php foreach($messages as $message): ?>
+    <?php
+        switch($type) {
+            case 'sent';
+                $number = $message->receiver;
+                break;
+            case 'scheduled';
+                $number = $message->receiver;
+                break;                    
+            case 'received';
+                $number = $message->sender;
+                break;
+           case 'queue';
+                $number = $message->receiver;
+                break;      
+           case 'failed';
+                $number = $message->receiver;
+                break; 				
+        }
+    ?>
+    <div class="messagelist-item" style="cursor: pointer;" onclick="document.location.href='<?php echo site_url('conversation/view/'.$number) ?>'">
+        <?php echo ($c == 'outbox' || $c == 'failed' ? nice_date($message->inserted) : nice_date($message->sent)); ?>
+        <span class="label info"><?php echo $this->contact->getDetail($number)->name; ?></span>
+        <?php echo substr($message->text, 0, 70); ?>
+    </div>
     <?php endforeach; ?>
-    </tbody>
-    <tfoot></tfoot>
-</table>
+    </div>
 </form>
 <div class="pagination">
     <ul>

@@ -37,42 +37,9 @@
         }
     }
 
-    ul.conversation {
-        margin: 0;
-
-        li {
-            margin: 0;
-            width: 100%;
-            margin-bottom: 1px;
-            &.sent {
-                background-color: @blueLight;
-                div > {
-                    .date, .author, .text { color: @black };
-                    .date:hover, .author:hover, .text:hover { color: @black };
-                }
-            }
-            &.received {
-                background-color: @greenLight;
-            }
-            div > .avatar {
-                background-color: #eee;
-            }
-            div > .text {
-                margin-bottom: 20px;
-            }
-            div > .status-icon {
-                position: absolute;
-                right: 10px;
-                bottom: 5px;
-            }
-        }
-    }
-
     .notices {
         .notice-image {
-            [class*=" icon-"] {
-                font-size: 30pt;
-            }
+            font-size: 30pt;
         }
     }
     
@@ -97,6 +64,57 @@
     }
 }
 
-.message-list {
+.messagelist-holder {
+    margin-bottom: 20px;
+    
+    .messagelist-item {
+        border-bottom: 1px solid #eee;
+        padding: 5px;
+    }
+}
+
+.conversation-holder {
+    margin-bottom: 20px;
+    
+    ul.replies {
+        margin: 0;
+
+        li {
+            margin: 0;
+            width: 100%;
+            margin-bottom: 1px;
+            &.sent {
+                background-color: @blueLight;
+                div > {
+                    .date, .author, .text { color: @black }
+                    .date:hover, .author:hover, .text:hover { color: @black }
+                }
+            }
+            &.received {
+                background-color: @greenLight;
+            }
+            div > .avatar {
+                background-color: #eee;
+            }
+            div > .text {
+                margin-bottom: 20px;
+            }
+            div > .status-icon {
+                position: absolute;
+                right: 10px;
+                bottom: 5px;
+            }
+        }
+    }
+}
+
+ul.token-input-list-facebook {
+    clear: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+    list-style: none;
+}
+
+div.token-input-dropdown-facebook {
 
 }

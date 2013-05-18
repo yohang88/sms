@@ -62,3 +62,9 @@ function nice_date($str, $option=NULL)
         return $res;
     }
 }
+
+function field($validation, $database = NULL, $last = ''){
+  $value = ($validation != NULL) ? $validation : ( ($database != NULL) ? $database : $last);
+  return $value;
+}
+

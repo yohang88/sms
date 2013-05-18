@@ -1,5 +1,6 @@
 <form>
-    <ul class="replies conversation">
+    <div class="conversation-holder">
+    <ul class="replies">
         <?php foreach($messages as $message): ?>
         <li class="<?php echo ($message->type == 'SENT' ? "sent" : "received"); ?>">
             <div class="avatar"><img/></div>
@@ -16,6 +17,7 @@
         </li>
         <?php endforeach; ?>
     </ul>
+    </div>
 </form>
 <div class="pagination">
     <ul>

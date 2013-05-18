@@ -4,24 +4,34 @@ class Message extends CI_Model {
 
 	public function sendsms($number, $text)
 	{
-        $filename = date("siH");
+        $filename = $this->generateRandomString(10);
+
         $filepath = PATHOUTGOING . DS . $filename;
 
         $data = "To: ".$number."\n";
-        $data .= "\n\n" . $text . date("siH");
+        $data .= "\n\n" . $text;
 
         if(write_file($filepath, $data))
         {
-            $this->insertQueue($filename, $data);
+            $this->insertQueue($filename, $number, $text);
         }
 	}
 
-    public function insertQueue($filename, $text)
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
+    }
+
+    public function insertQueue($filename, $number, $text)
     {
         $data = array(
            'filename' => $filename,
            'type' => 'QUEUE',
-           'receiver' => '6285729402579',
+           'receiver' => $number,
            'text' => $text
         );
 
@@ -49,7 +59,7 @@ class Message extends CI_Model {
                 ORDER BY id DESC
             ";
 
-        } elseif($type == 'queue' || $type == 'scheduled') {
+        } elseif($type == 'queue' || $type == 'scheduled' || $type == 'failed') {
             $sql = "
                 SELECT * FROM sms_log
                 WHERE type = '".$type."'
@@ -81,6 +91,7 @@ class Message extends CI_Model {
             FROM sms_log
             WHERE (`receiver` = '".$with."' OR `sender` = '".$with."') AND (`type` NOT IN ('SCHEDULED', 'QUEUE'))
             ORDER BY id DESC
+            LIMIT 0,10
         ";
 
         $query = $this->db->query($sql);
