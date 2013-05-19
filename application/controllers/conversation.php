@@ -2,6 +2,12 @@
 
 class Conversation extends CI_Controller {
 
+   public function __construct()
+   {
+        parent::__construct();
+        $this->user->on_invalid_session('auth');
+   }
+
 	public function index()
 	{
         redirect('inbox');

@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "inbox";
+$route['default_controller'] = "home";
 $route['404_override'] = 'error/missing';
 
 
