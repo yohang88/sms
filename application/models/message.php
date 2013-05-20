@@ -4,7 +4,7 @@ class Message extends CI_Model {
 
 	public function sendsms($number, $text)
 	{
-        $filename = $this->generateRandomString(10);
+        $filename = generateRandomString(10);
 
         $filepath = PATHOUTGOING . DS . $filename;
 
@@ -16,15 +16,6 @@ class Message extends CI_Model {
             $this->insertQueue($filename, $number, $text);
         }
 	}
-
-    function generateRandomString($length = 10) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, strlen($characters) - 1)];
-        }
-        return $randomString;
-    }
 
     public function insertQueue($filename, $number, $text)
     {
@@ -93,18 +84,30 @@ class Message extends CI_Model {
         }
     }
 
-    public function listConversation($with)
+    public function listConversation($with, $counttotal, $offset=0, $limit=20)
     {
-        $sql = "
-            SELECT *
-            FROM sms_log
-            WHERE (`receiver` = '".$with."' OR `sender` = '".$with."') AND (`type` NOT IN ('SCHEDULED', 'QUEUE'))
-            ORDER BY id DESC
-            LIMIT 0,10
-        ";
+        $sql = "";
+        if(! $counttotal) {
+            $sql .= " SELECT * ";
+        } else {
+            $sql .= " SELECT COUNT(*) AS total ";
+        }
+
+        $sql .= " FROM sms_log
+                  WHERE (`receiver` = '".$with."' OR `sender` = '".$with."') AND (`type` NOT IN ('SCHEDULED', 'QUEUE', 'FAILED'))
+                ";
+
+        if(! $counttotal) {
+            $sql .= " ORDER BY id DESC LIMIT ".$offset.",".$limit;
+        }
 
         $query = $this->db->query($sql);
 
-        return $query->result();
+        if(! $counttotal) {
+            return $query->result();
+        } else {
+            return $query->row()->total;
+        }
     }
+
 }

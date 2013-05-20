@@ -12,7 +12,7 @@ class Scheduled extends CI_Controller {
 	{
         $this->load->library('pagination');
 
-        $per_page             = $this->config->item('pagination_page_limit');;
+        $per_page             = $this->config->item('pagination_page_limit');
         $messages             = $this->message->listMessage('scheduled', false, $offset, $per_page);
         $message_total        = (int) $this->message->listMessage('scheduled', true);
 

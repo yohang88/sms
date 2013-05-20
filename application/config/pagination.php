@@ -1,13 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['num_links']       = 2;
+$config['num_links']       = 5;
 $config['first_link']      = 'First';
 $config['full_tag_open']   = '<div class="pagination"><ul>';
 $config['full_tag_close']  = '</ul></div>';
-$config['first_link']      = 'First';
+$config['first_link']      = '<a></a>';
 $config['first_tag_open']  = '<li class="first">';
 $config['first_tag_close'] = '</li>';
-$config['last_link']       = 'Last';
+$config['last_link']       = '<a></a>';
 $config['last_tag_open']   = '<li class="last">';
 $config['last_tag_close']  = '</li>';
 $config['next_link']       = '';

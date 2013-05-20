@@ -33,14 +33,14 @@ class Group extends CI_Controller {
     {
         $this->load->library('pagination');
 
-        $per_page             = $this->config->item('pagination_page_limit');
-        $members              = $this->contactgroup->getMemberList($group_id, $offset, $per_page);
-        $member_total         = (int) $this->contactgroup->getMemberCount($group_id);
+        $per_page              = $this->config->item('pagination_page_limit');
+        $members               = $this->contactgroup->getMemberList($group_id, $offset, $per_page);
+        $member_total          = (int) $this->contactgroup->getMemberCount($group_id);
 
-        $config['base_url']   = site_url('group/memberlist/'.$group_id);
+        $config['base_url']    = site_url('group/memberlist/'.$group_id);
         $config['uri_segment'] = 4;
-        $config['total_rows'] = $member_total;
-        $config['per_page']   = $per_page;
+        $config['total_rows']  = $member_total;
+        $config['per_page']    = $per_page;
 
         $this->pagination->initialize($config);
 
