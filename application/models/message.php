@@ -103,6 +103,9 @@ class Message extends CI_Model {
 
         $query = $this->db->query($sql);
 
+        if(! $query)
+            show_404();
+
         if(! $counttotal) {
             return $query->result();
         } else {
