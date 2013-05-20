@@ -2,16 +2,28 @@
 
 class Scheduled extends CI_Controller {
 
-   public function __construct()
-   {
+    public function __construct()
+    {
         parent::__construct();
         $this->user->on_invalid_session('auth');
-   }
+    }
 
-	public function index()
+	public function index($offset=0)
 	{
-        $data['messages'] = $this->message->listMessage('scheduled');
-        $data['type'] = 'scheduled';
+        $this->load->library('pagination');
+
+        $per_page             = $this->config->item('pagination_page_limit');;
+        $messages             = $this->message->listMessage('scheduled', false, $offset, $per_page);
+        $message_total        = (int) $this->message->listMessage('scheduled', true);
+
+        $config['base_url']   = site_url('scheduled/index');
+        $config['total_rows'] = $message_total;
+        $config['per_page']   = $per_page;
+
+        $this->pagination->initialize($config);
+
+        $data['messages']     = $messages;
+        $data['type']         = 'scheduled';
 
 		$this->load->view('common/header');
 		$this->load->view('scheduled/index', $data);

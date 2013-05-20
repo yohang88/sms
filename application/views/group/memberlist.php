@@ -10,8 +10,8 @@
 </div>
 
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/token-input.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/token-input-facebook.css" type="text/css" />    
-    
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/token-input-facebook.css" type="text/css" />
+
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.tokeninput.js"></script>
 
 <script type="text/javascript">
@@ -23,7 +23,7 @@ $(document).ready(function() {
         preventDuplicates: true
     });
 });
-</script> 
+</script>
 
 <div class="page secondary with-sidebar">
     <?php $this->load->view('common/sidebar'); ?>
@@ -39,9 +39,9 @@ $(document).ready(function() {
                     <button class="btn-clear"></button>
                 </div>
                 <div class="input-control">
-                <input type="submit" value="Tambah"/>            
+                <input type="submit" value="Tambah"/>
                 </div>
-                <?php echo form_close() ?>                
+                <?php echo form_close() ?>
                 </fieldset>
                 <?php if($members): ?>
                 <div class="contactlist-holder">
@@ -62,18 +62,9 @@ $(document).ready(function() {
                     </tbody>
                 </table>
                 </div>
-                
-                <div class="pagination">
-                    <ul>
-                        <li class="first"><a></a></li>
-                        <li class="prev"><a></a></li>
-                        <li><a>1</a></li>
-                        <li class="active"><a>2</a></li>
-                        <li><a>N</a></li>
-                        <li class="next"><a></a></li>
-                        <li class="last"><a></a></li>
-                    </ul>
-                </div> 
+
+                <?php echo $this->pagination->create_links(); ?>
+
                 <?php else: ?>
                 <h4>Tidak ada anggota.</h4>
                 <?php endif; ?>

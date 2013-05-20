@@ -2,23 +2,36 @@
 
 class Contact extends CI_Model {
 
-    public function getList()
+    public function getList($offset=0, $limit=20)
     {
         $sql = "
             SELECT *
             FROM sms_contacts
             ORDER BY name ASC
+            LIMIT ".$offset.",".$limit."
         ";
-        
+
         $query = $this->db->query($sql);
 
         if($query->num_rows() > 0) {
             return $query->result();
         } else {
-            return false;
-        }    
+            return array();
+        }
     }
-    
+
+    public function getTotal()
+    {
+        $sql = "
+            SELECT COUNT(*) AS total
+            FROM sms_contacts
+        ";
+
+        $query = $this->db->query($sql);
+
+        return $query->row()->total;
+    }
+
     public function ajaxListSearch($query)
     {
         $sql = "
@@ -33,10 +46,10 @@ class Contact extends CI_Model {
         if($query->num_rows() > 0) {
             return $query->result_array();
         } else {
-            return false;
-        }        
+            return array();
+        }
     }
-	
+
     public function ajaxListGroupSearch($query)
     {
         $sql = "
@@ -51,10 +64,10 @@ class Contact extends CI_Model {
         if($query->num_rows() > 0) {
             return $query->result_array();
         } else {
-            return false;
-        }        
-    }	
-    
+            return array();
+        }
+    }
+
     public function getDetail($number)
     {
         $sql = "
@@ -62,7 +75,7 @@ class Contact extends CI_Model {
             FROM sms_contacts
             WHERE `primary` = '".$number."' || `id` = '".$number."'
         ";
-        
+
         $query = $this->db->query($sql);
         if($query->num_rows() > 0) {
             return $query->row();
@@ -78,7 +91,7 @@ class Contact extends CI_Model {
 		$id = $this->db->insert_id();
 		return $this->edit($id, $data);
 	}
-	
+
 	function edit($id, $data) {
 		$this->db->where('id', $id);
 		$result = $this->db->update('sms_contacts', $data);
@@ -87,9 +100,9 @@ class Contact extends CI_Model {
 		} else {
 			return false;
 		}
-	} 	
-	
-	function delete($id ){			
+	}
+
+	function delete($id ){
 		$this->db->delete('sms_contacts', array('id' => $id));
-	}    
+	}
 }

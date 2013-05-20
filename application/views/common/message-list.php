@@ -13,16 +13,16 @@
                 break;
             case 'scheduled';
                 $number = $message->receiver;
-                break;                    
+                break;
             case 'received';
                 $number = $message->sender;
                 break;
            case 'queue';
                 $number = $message->receiver;
-                break;      
+                break;
            case 'failed';
                 $number = $message->receiver;
-                break; 				
+                break;
         }
     ?>
     <div class="messagelist-item" style="cursor: pointer;" onclick="document.location.href='<?php echo site_url('conversation/view/'.$number) ?>'">
@@ -33,17 +33,7 @@
     <?php endforeach; ?>
     </div>
 </form>
-<div class="pagination">
-    <ul>
-        <li class="first"><a></a></li>
-        <li class="prev"><a></a></li>
-        <li><a>1</a></li>
-        <li class="active"><a>2</a></li>
-        <li><a>N</a></li>
-        <li class="next"><a></a></li>
-        <li class="last"><a></a></li>
-    </ul>
-</div>
+<?php echo $this->pagination->create_links(); ?>
 <?php else: ?>
 <div class="notices">
     <div class="bg-color-green">

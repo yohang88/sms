@@ -38,50 +38,59 @@ class Message extends CI_Model {
         $this->db->insert('sms_log', $data);
     }
 
-    public function listMessage($type)
+    public function listMessage($type, $counttotal, $offset=0, $limit=20)
     {
+
+        $sql = "";
+
         if($type == 'sent' || $type == 'received') {
             switch($type) {
                 case 'sent':
-                    $group = 'receiver';
+                    $group_by = 'receiver';
                     break;
 
                 case 'received':
-                    $group = 'sender';
+                    $group_by = 'sender';
                     break;
             }
 
-            $sql = "
-                SELECT t1.* FROM sms_log t1
-                JOIN (SELECT MAX(id) id FROM sms_log WHERE type = '".$type."' GROUP BY `".$group."`) t2
-                ON t1.id = t2.id
-                WHERE type = '".$type."'
-                ORDER BY id DESC
-            ";
+            if($counttotal) {
+                $sql .= " SELECT COUNT(*) AS total FROM sms_log t1 ";
+            } else {
+                $sql .= " SELECT t1.* FROM sms_log t1 ";
+            }
+            $sql .= " JOIN (SELECT MAX(id) id FROM sms_log WHERE type = '".$type."' GROUP BY `".$group_by."`) t2 ON t1.id = t2.id";
+            $sql .= " WHERE type = '".$type."'";
+
+            if(! $counttotal) {
+                $sql .= " ORDER BY id DESC ";
+            }
 
         } elseif($type == 'queue' || $type == 'scheduled' || $type == 'failed') {
-            $sql = "
-                SELECT * FROM sms_log
-                WHERE type = '".$type."'
-                ORDER BY id DESC
-            ";
+            if(! $counttotal) {
+                $sql .= " SELECT * FROM sms_log ";
+            } else {
+                $sql .= " SELECT COUNT(*) AS total FROM sms_log ";
+            }
+
+            $sql .= " WHERE type = '".$type."'";
+
+            if(! $counttotal) {
+                $sql .= " ORDER BY id DESC ";
+            }
         }
 
-        /*
-        $this->db->select('*');
-        $this->db->from('sms_log');
-        $this->db->where('type', $type);
-        if($type == 'received')
-            $this->db->group_by('sender');
-        elseif($type == 'sent')
-            $this->db->group_by('receiver');
-
-        $this->db->limit(0, 20);
-        */
+        if(! $counttotal) {
+            $sql .= " LIMIT ".$offset.",".$limit;
+        }
 
         $query = $this->db->query($sql);
 
-        return $query->result();
+        if(! $counttotal) {
+            return $query->result();
+        } else {
+            return $query->row()->total;
+        }
     }
 
     public function listConversation($with)

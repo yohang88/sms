@@ -2,15 +2,27 @@
 
 class Addressbook extends CI_Controller {
 
-   public function __construct()
-   {
+    public function __construct()
+    {
         parent::__construct();
         $this->user->on_invalid_session('auth');
-   }
+    }
 
-	public function index()
+	public function index($offset=0)
 	{
-        $data['contacts'] = $this->contact->getList();
+        $this->load->library('pagination');
+
+        $per_page             = $this->config->item('pagination_page_limit');
+        $contacts             = $this->contact->getList($offset, $per_page);
+        $contact_total        = (int) $this->contact->getTotal();
+
+        $config['base_url']   = site_url('addressbook/index');
+        $config['total_rows'] = $contact_total;
+        $config['per_page']   = $per_page;
+
+        $this->pagination->initialize($config);
+
+        $data['contacts']     = $contacts;
 
 		$this->load->view('common/header');
 		$this->load->view('addressbook/index', $data);

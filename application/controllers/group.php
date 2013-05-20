@@ -8,18 +8,43 @@ class Group extends CI_Controller {
         $this->user->on_invalid_session('auth');
    }
 
-	public function index()
+	public function index($offset=0)
 	{
-        $data['groups'] = $this->contactgroup->getList();
+        $this->load->library('pagination');
+
+        $per_page             = $this->config->item('pagination_page_limit');
+        $groups               = $this->contactgroup->getList($offset, $per_page);
+        $group_total          = (int) $this->contactgroup->getGroupCount();
+
+        $config['base_url']   = site_url('group/index');
+        $config['total_rows'] = $group_total;
+        $config['per_page']   = $per_page;
+
+        $this->pagination->initialize($config);
+
+        $data['groups'] = $groups;
 
 		$this->load->view('common/header');
 		$this->load->view('group/index', $data);
 		$this->load->view('common/footer');
 	}
 
-    public function memberlist($group_id)
+    public function memberlist($group_id, $offset=0)
     {
-        $data['members'] = $this->contactgroup->getMemberList($group_id);
+        $this->load->library('pagination');
+
+        $per_page             = $this->config->item('pagination_page_limit');
+        $members              = $this->contactgroup->getMemberList($group_id, $offset, $per_page);
+        $member_total         = (int) $this->contactgroup->getMemberCount($group_id);
+
+        $config['base_url']   = site_url('group/memberlist/'.$group_id);
+        $config['uri_segment'] = 4;
+        $config['total_rows'] = $member_total;
+        $config['per_page']   = $per_page;
+
+        $this->pagination->initialize($config);
+
+        $data['members'] = $members;
         $data['group_id'] = $group_id;
 
 		$this->load->view('common/header');
