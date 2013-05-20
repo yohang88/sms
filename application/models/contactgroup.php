@@ -117,12 +117,22 @@ class ContactGroup extends CI_Model {
 		$this->db->delete('sms_groups', array('id' => $id));
 	}
 
-    function addmember($group_id, $user_id) {
+    function addMember($group_id, $user_id) {
         $result = $this->db->insert('sms_contactgroup', array('id_contact' => $user_id, 'id_group' => $group_id));
 		if($result){
 			return true;
 		} else {
 			return false;
 		}
+    }
+
+    function delMember($group_id, $user_id){
+        $result = $this->db->delete('sms_contactgroup', array('id_contact' => $user_id, 'id_group' => $group_id));
+
+        if($result){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

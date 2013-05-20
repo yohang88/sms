@@ -33,7 +33,7 @@ $(document).ready(function() {
                 <h2>Group: <?php echo $this->contactgroup->getDetail($group_id)->name ?></h2>
                 <fieldset>
                 <legend>Tambahkan Anggota</legend>
-                <?php echo form_open('group/addmember', '', array('group_id' => $group_id)); ?>
+                <?php echo form_open('group/addMember', '', array('group_id' => $group_id)); ?>
                 <div class="input-control text">
                     <input name="numbers" type="phone" placeholder="Nomor Telepon" id="phone" />
                     <button class="btn-clear"></button>
@@ -50,6 +50,7 @@ $(document).ready(function() {
                     <tr>
                        <th>Nama</th>
                        <th class="right">Nomor Telepon</th>
+                       <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,6 +58,7 @@ $(document).ready(function() {
                     <tr>
                         <td width="250px"><span style="cursor: pointer;" onclick="document.location.href='<?php echo site_url('addressbook/edit/'.$member->id) ?>'"><?php echo $member->name ?></span></td>
                         <td width="110px"><?php echo $member->primary ?></td>
+                        <td><a href="<?php echo site_url('group/delMember/'.$group_id.'/'.$member->id); ?>">Hapus</a></td>
                     </tr>
                     <?php endforeach; ?>
                     </tbody>

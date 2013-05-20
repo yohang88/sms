@@ -119,16 +119,22 @@ class Group extends CI_Controller {
         }
     }
 
-    public function addmember()
+    public function addMember()
     {
         $group_id = $this->input->post('group_id');
         $user_ids = $this->input->post('numbers');
         $user_ids = explode(',', $user_ids);
 
         foreach($user_ids as $user_id) {
-           $this->contactgroup->addmember($group_id, $user_id);
+           $this->contactgroup->addMember($group_id, $user_id);
         }
 
+        redirect('group/memberlist/'.$group_id);
+    }
+
+    public function delMember($group_id, $user_id)
+    {
+        $this->contactgroup->delMember($group_id, $user_id);
         redirect('group/memberlist/'.$group_id);
     }
 }
