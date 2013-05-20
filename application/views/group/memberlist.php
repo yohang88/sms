@@ -1,10 +1,7 @@
 <div id="header">
-    <div class="page secondary">
+    <div class="container">
         <div class="page-header">
-            <div class="page-header-content">
-                <h1>Daftar Anggota<small>Group</small></h1>
-                <i class="page-icon icon-enter"></i>
-            </div>
+            <h1>Daftar Anggota <small>Group</small></h1>
         </div>
     </div>
 </div>
@@ -25,11 +22,13 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="page secondary with-sidebar">
-    <?php $this->load->view('common/sidebar'); ?>
-    <div class="page-region">
-        <div class="page-region-content">
-            <div class="span10">
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <?php $this->load->view('common/sidebar'); ?>
+            </div>
+            <div class="span9">
                 <h2>Group: <?php echo $this->contactgroup->getDetail($group_id)->name ?></h2>
                 <fieldset>
                 <legend>Tambahkan Anggota</legend>
@@ -45,7 +44,7 @@ $(document).ready(function() {
                 </fieldset>
                 <?php if($members): ?>
                 <div class="contactlist-holder">
-                <table class="striped hovered">
+                <table class="table table-striped table-hover table-condensed">
                     <thead>
                     <tr>
                        <th>Nama</th>

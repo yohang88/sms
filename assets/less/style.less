@@ -1,3 +1,5 @@
+@import "bootstrap.less";
+
 @white:                 #ffffff;
 @black:                 #000000;
 @blue:                  #2d89ef;
@@ -20,34 +22,6 @@
 @teal:                  #00ABA9;
 @redLight:              #EE1111;
 
-.metrouicss {
-    .page {
-        width: 940px;
-        margin: 0 auto;
-        .page-header {
-            .page-header-content {
-                .page-icon {
-                    position: absolute;
-                    top: 34px;
-                    left: 30px;
-                    font-size: 32pt;
-                    color: @white;
-                }
-            }
-        }
-    }
-
-    .notices {
-        .notice-image {
-            font-size: 30pt;
-        }
-    }
-    
-    .input-control.checkbox  {
-        margin: 0;
-
-    }
-}
 
 #nav {
     background-color: @greenDark;
@@ -62,6 +36,11 @@
     h1, a {
         color: @white;
     }
+}
+
+.page-header {
+    border: none;
+    padding: 0;
 }
 
 .messagelist-holder {

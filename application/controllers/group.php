@@ -2,11 +2,11 @@
 
 class Group extends CI_Controller {
 
-   public function __construct()
-   {
+    public function __construct()
+    {
         parent::__construct();
         $this->user->on_invalid_session('auth');
-   }
+    }
 
 	public function index($offset=0)
 	{
@@ -101,22 +101,44 @@ class Group extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE){
             if($id != "X"){
-              return $this->edit($id);
+                return $this->edit($id);
             } else {
-              return $this->add();
+                return $this->add();
             }
         } else {
             $data = array();
             $data['name'] = $this->input->post('name');
 
             if($id == 'X'){
-              $id = $this->contactgroup->add($data);
+                $id = $this->contactgroup->add($data);
             } else {
-              $this->contactgroup->edit($id, $data);
+                $id = $this->contactgroup->edit($id, $data);
             }
-
+            
+            if($id) {
+                $this->session->set_flashdata('notif_type', 'success');
+                $this->session->set_flashdata('notif_text', 'Data berhasil disimpan');
+            } else {
+                $this->session->set_flashdata('notif_type', 'error');
+                $this->session->set_flashdata('notif_text', 'Data gagal disimpan');
+            }
+            
             redirect('group/edit/'.$id);
         }
+    }
+    
+    public function delete($group_id)
+    {
+        $result = $this->contactgroup->delete($group_id);
+        if($result) {
+            $this->session->set_flashdata('notif_type', 'success');
+            $this->session->set_flashdata('notif_text', 'Data berhasil dihapus');
+        } else {
+            $this->session->set_flashdata('notif_type', 'error');
+            $this->session->set_flashdata('notif_text', 'Data gagal dihapus');
+        }
+            
+        redirect('group');        
     }
 
     public function addMember()

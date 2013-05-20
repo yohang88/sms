@@ -1,23 +1,22 @@
 <div id="header">
-    <div class="page secondary">
+    <div class="container">
         <div class="page-header">
-            <div class="page-header-content">
-                <h1>Buku Telepon<small>daftar kontak</small></h1>
-                <i class="page-icon icon-enter"></i>
-            </div>
+            <h1>Buku Telepon <small>daftar kontak</small></h1>
         </div>
     </div>
 </div>
 
-<div class="page secondary with-sidebar">
-    <?php $this->load->view('common/sidebar'); ?>
-    <div class="page-region">
-        <div class="page-region-content">
-            <div class="span10">
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <?php $this->load->view('common/sidebar'); ?>
+            </div>
+            <div class="span9">
                 <a href="<?php echo site_url('addressbook/add') ?>" class="button"><i class="icon-plus-2"></i>Tambah Baru</a>
                 <a class="button"><i class="icon-file-excel"></i>Impor dari Excel</a>
                 <div class="contactlist-holder">
-                <table class="striped hovered">
+                <table class="table table-striped table-hover table-condensed">
                     <thead>
                     <tr>
                        <th>Nama</th>

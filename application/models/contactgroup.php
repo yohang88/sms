@@ -113,12 +113,20 @@ class ContactGroup extends CI_Model {
 		}
 	}
 
-	function delete($id ){
-		$this->db->delete('sms_groups', array('id' => $id));
+	function delete($id){
+		$result = $this->db->delete('sms_groups', array('id' => $id));
+        $result_member = $this->db->delete('sms_contactgroup', array('id_group' => $id));
+        
+		if($result && $result_member) {
+			return true;
+		} else {
+			return false;
+		}        
 	}
 
     function addMember($group_id, $user_id) {
         $result = $this->db->insert('sms_contactgroup', array('id_contact' => $user_id, 'id_group' => $group_id));
+        
 		if($result){
 			return true;
 		} else {
@@ -128,7 +136,7 @@ class ContactGroup extends CI_Model {
 
     function delMember($group_id, $user_id){
         $result = $this->db->delete('sms_contactgroup', array('id_contact' => $user_id, 'id_group' => $group_id));
-
+        
         if($result){
             return true;
         } else {
