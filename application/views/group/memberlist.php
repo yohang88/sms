@@ -29,35 +29,28 @@ $(document).ready(function() {
                 <?php $this->load->view('common/sidebar'); ?>
             </div>
             <div class="span9">
-                <h2>Group: <?php echo $this->contactgroup->getDetail($group_id)->name ?></h2>
-                <fieldset>
-                <legend>Tambahkan Anggota</legend>
+                <h4>Group: <?php echo $this->contactgroup->getDetail($group_id)->name ?></h4>
                 <?php echo form_open('group/addMember', '', array('group_id' => $group_id)); ?>
-                <div class="input-control text">
-                    <input name="numbers" type="phone" placeholder="Nomor Telepon" id="phone" />
-                    <button class="btn-clear"></button>
-                </div>
-                <div class="input-control">
-                <input type="submit" value="Tambah"/>
-                </div>
+                <input name="numbers" type="phone" placeholder="Nomor Telepon" id="phone" width="100%" />
+                <button type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i> Tambah</button>
+                <a href="<?php echo site_url('group') ?>" class="btn">Kembali</a>
                 <?php echo form_close() ?>
-                </fieldset>
+
+                <?php $this->load->view('common/notif_area'); ?>
+
                 <?php if($members): ?>
                 <div class="contactlist-holder">
-                <table class="table table-striped table-hover table-condensed">
-                    <thead>
-                    <tr>
-                       <th>Nama</th>
-                       <th class="right">Nomor Telepon</th>
-                       <th></th>
-                    </tr>
-                    </thead>
+                <table class="table table-striped table-hover">
                     <tbody>
                     <?php foreach($members as $member): ?>
                     <tr>
-                        <td width="250px"><span style="cursor: pointer;" onclick="document.location.href='<?php echo site_url('addressbook/edit/'.$member->id) ?>'"><?php echo $member->name ?></span></td>
-                        <td width="110px"><?php echo $member->primary ?></td>
-                        <td><a href="<?php echo site_url('group/delMember/'.$group_id.'/'.$member->id); ?>">Hapus</a></td>
+                        <td><strong><?php echo $member->name ?></strong><br /><small><?php echo $member->primary ?></small></td>
+                        <td width="110px">
+                            <div class="btn-group">
+                              <a href="<?php echo site_url('addressbook/edit/'.$member->id) ?>" class="btn"><i class="icon-eye-open"></i> Lihat</a>
+                              <a href="<?php echo site_url('group/delMember/'.$group_id.'/'.$member->id); ?>" class="btn btn-danger"><i class="icon-trash icon-white"></i> Hapus</a>
+                            </div>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                     </tbody>

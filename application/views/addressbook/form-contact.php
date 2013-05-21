@@ -1,7 +1,7 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Ubah Data<small>buku telepon</small></h1>
+            <h1>Ubah Data <small>buku telepon</small></h1>
         </div>
     </div>
 </div>
@@ -13,50 +13,66 @@
                 <?php $this->load->view('common/sidebar'); ?>
             </div>
             <div class="span9">
-                <div class="row">
-                    <div class="span4">
-                        <?php echo validation_errors(); ?>
-                        
-                        <?php $id = @field($this->uri->segment(3, NULL), $this->form_validation->set_value('id'), 'X'); ?>
-                        <?php echo form_open('addressbook/save', '', array('id' => $id)); ?>
-                        <div class="input-control text">
-                            <input name="name" type="text" placeholder="Nama Lengkap" value="<?php echo @field(set_value('name'), $detail->name) ?>" />
-                            <button class="btn-clear"></button>
-                        </div>                
-                        <div class="input-control text">
-                            <input name="primary" type="text" placeholder="Nomor Telepon" value="<?php echo @field(set_value('primary'), $detail->primary); ?>" />
-                            <button class="btn-clear"></button>
-                        </div>
-                        <div class="input-control text">
-                            <input name="alternate" type="text" placeholder="Nomor Alternatif" value="<?php echo @field(set_value('alternate'), $detail->alternate) ?>" />
-                            <button class="btn-clear"></button>
-                        </div>                
-                        <div class="input-control textarea">
-                            <textarea name="address" placeholder="Alamat"><?php echo @field(set_value('address'), $detail->address) ?></textarea>
-                        </div>
-                        <div class="input-control text">
-                            <input name="email" type="text" placeholder="Alamat Email" value="<?php echo @field(set_value('email'), $detail->email) ?>" />
-                            <button class="btn-clear"></button>
-                        </div>
-                        <div class="input-control text">
-                            <input name="group" type="text" placeholder="Group" />
-                            <button class="btn-clear"></button>
-                        </div>                      
-                        <div class="input-control">
-                        <input type="submit" value="Simpan"/>
-                        <a href="<?php echo site_url('addressbook') ?>" class="button">Kembali</a>
-                        </div>
-                        <?php echo form_close() ?>
-                    </div>
-                    <div class="span5">
-                        <?php if($id != 'X'): ?>
-                        <a href="<?php echo site_url('conversation/view/'.$detail->primary) ?>" class="button command-button">
-                            Lihat Percakapan
-                            <small>Lihat catatan percakapan dengan nomor ini</small>
-                        </a>
-                        <?php endif; ?>
-                    </div>
+                <?php $this->load->view('common/notif_area'); ?>
+
+                <?php echo validation_errors(); ?>
+
+                <?php $id = @field($this->uri->segment(3, NULL), $this->form_validation->set_value('id'), 'X'); ?>
+                <?php echo form_open('addressbook/save', array('class' => 'form-horizontal'), array('id' => $id)); ?>
+                <div class="control-group">
+                <label class="control-label">Nama Lengkap</label>
+                <div class="controls">
+                    <input name="name" type="text" placeholder="Nama Lengkap" value="<?php echo @field(set_value('name'), $detail->name) ?>" />
                 </div>
+                </div>
+
+                <div class="control-group">
+                <label class="control-label">Nomor Telepon</label>
+                <div class="controls">
+                    <input name="primary" type="text" placeholder="Nomor Telepon" value="<?php echo @field(set_value('primary'), $detail->primary); ?>" />
+                </div>
+                </div>
+
+                <div class="control-group">
+                <label class="control-label">Nomor Alternatif</label>
+                <div class="controls">
+                    <input name="alternate" type="text" placeholder="Nomor Alternatif" value="<?php echo @field(set_value('alternate'), $detail->alternate) ?>" />
+                </div>
+                </div>
+
+                <div class="control-group">
+                <label class="control-label">Alamat</label>
+                <div class="controls">
+                    <textarea name="address" placeholder="Alamat"><?php echo @field(set_value('address'), $detail->address) ?></textarea>
+                </div>
+                </div>
+
+                <div class="control-group">
+                <label class="control-label">Nama Lengkap</label>
+                <div class="controls">
+                    <input name="email" type="text" placeholder="Alamat Email" value="<?php echo @field(set_value('email'), $detail->email) ?>" />
+                </div>
+                </div>
+
+                <div class="control-group">
+                <label class="control-label">Nama Lengkap</label>
+                <div class="controls">
+                    <input name="group" type="text" placeholder="Group" />
+                </div>
+                </div>
+
+                <div class="form-actions">
+                <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Simpan</button>
+
+                <?php if($id != 'X'): ?>
+                <a href="<?php echo site_url('conversation/view/'.$detail->primary) ?>" class="btn btn-success">
+                    <i class="icon-comment icon-white"></i> Lihat Percakapan
+                </a>
+                <?php endif; ?>
+                <a href="<?php echo site_url('addressbook') ?>" class="btn"><i class="icon-share"></i> Kembali</a>
+                </div>
+                <?php echo form_close() ?>
+
             </div>
         </div>
     </div>

@@ -114,7 +114,7 @@ class Group extends CI_Controller {
             } else {
                 $id = $this->contactgroup->edit($id, $data);
             }
-            
+
             if($id) {
                 $this->session->set_flashdata('notif_type', 'success');
                 $this->session->set_flashdata('notif_text', 'Data berhasil disimpan');
@@ -122,14 +122,15 @@ class Group extends CI_Controller {
                 $this->session->set_flashdata('notif_type', 'error');
                 $this->session->set_flashdata('notif_text', 'Data gagal disimpan');
             }
-            
+
             redirect('group/edit/'.$id);
         }
     }
-    
+
     public function delete($group_id)
     {
         $result = $this->contactgroup->delete($group_id);
+
         if($result) {
             $this->session->set_flashdata('notif_type', 'success');
             $this->session->set_flashdata('notif_text', 'Data berhasil dihapus');
@@ -137,8 +138,8 @@ class Group extends CI_Controller {
             $this->session->set_flashdata('notif_type', 'error');
             $this->session->set_flashdata('notif_text', 'Data gagal dihapus');
         }
-            
-        redirect('group');        
+
+        redirect('group');
     }
 
     public function addMember()
@@ -151,12 +152,19 @@ class Group extends CI_Controller {
            $this->contactgroup->addMember($group_id, $user_id);
         }
 
+        $this->session->set_flashdata('notif_type', 'success');
+        $this->session->set_flashdata('notif_text', 'Data berhasil disimpan');
+
         redirect('group/memberlist/'.$group_id);
     }
 
     public function delMember($group_id, $user_id)
     {
         $this->contactgroup->delMember($group_id, $user_id);
+
+        $this->session->set_flashdata('notif_type', 'info');
+        $this->session->set_flashdata('notif_text', 'Data berhasil dihapus');
+
         redirect('group/memberlist/'.$group_id);
     }
 }

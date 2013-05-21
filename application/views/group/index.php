@@ -13,24 +13,29 @@
                 <?php $this->load->view('common/sidebar'); ?>
             </div>
             <div class="span9">
+
+                <div class="toolbar">
+                <div class="btn-group pull-right">
+                    <a href="<?php echo site_url('group/add') ?>" class="btn btn-success"><i class="icon-plus icon-white"></i> Tambah</a>
+                </div>
+                <div class="clearfix"></div>
+                </div>
+
                 <?php $this->load->view('common/notif_area'); ?>
-                
-                <a href="<?php echo site_url('group/add') ?>" class="button"><i class="icon-plus-2"></i>Tambah Baru</a>
+
                 <div class="contactlist-holder">
-                <table class="table table-striped table-hover table-condensed">
-                    <thead>
-                    <tr>
-                       <th>Nama</th>
-                       <th class="right">Jumlah Anggota</th>
-                       <th></th>
-                    </tr>
-                    </thead>
+                <table class="table table-striped table-hover">
                     <tbody>
                     <?php foreach($groups as $group): ?>
                     <tr>
-                        <td width="250px"><span style="cursor: pointer;" onclick="document.location.href='<?php echo site_url('group/edit/'.$group->id) ?>'"><?php echo $group->name ?></span></td>
-                        <td width="110px"><span style="cursor: pointer;" onclick="document.location.href='<?php echo site_url('group/memberlist/'.$group->id) ?>'"><?php echo $group->membercount ?></span></td>
-                        <td><a href="<?php echo site_url('group/delete/'.$group->id) ?>">Hapus</a></td>
+                        <td><strong><?php echo $group->name ?></strong><br /><small><?php echo $group->membercount ?> anggota</small></td>
+                        <td width="190px">
+                            <div class="btn-group">
+                              <a href="<?php echo site_url('group/memberlist/'.$group->id) ?>" class="btn"><i class="icon-eye-open"></i> Anggota</a>
+                              <a href="<?php echo site_url('group/edit/'.$group->id) ?>" class="btn"><i class="icon-wrench"></i> Ubah</a>
+                              <a href="<?php echo site_url('group/delete/'.$group->id) ?>" class="btn btn-danger"><i class="icon-trash icon-white"></i> Hapus</a>
+                            </div>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                     </tbody>

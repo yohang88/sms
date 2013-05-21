@@ -102,7 +102,12 @@ class Contact extends CI_Model {
 		}
 	}
 
-	function delete($id ){
-		$this->db->delete('sms_contacts', array('id' => $id));
+	function delete($id){
+		$result = $this->db->delete('sms_contacts', array('id' => $id));
+        if($result){
+            return true;
+        } else {
+            return false;
+        }
 	}
 }

@@ -13,8 +13,17 @@
                 <?php $this->load->view('common/sidebar'); ?>
             </div>
             <div class="span9">
-                <a href="<?php echo site_url('addressbook/add') ?>" class="button"><i class="icon-plus-2"></i>Tambah Baru</a>
-                <a class="button"><i class="icon-file-excel"></i>Impor dari Excel</a>
+
+                <div class="toolbar">
+                <div class="btn-group pull-right">
+                    <a href="<?php echo site_url('addressbook/add') ?>" class="btn btn-success"><i class="icon-plus icon-white"></i> Tambah</a>
+                    <a class="btn"><i class="icon-th-list"></i> Impor Excel</a>
+                </div>
+                <div class="clearfix"></div>
+                </div>
+
+                <?php $this->load->view('common/notif_area'); ?>
+
                 <div class="contactlist-holder">
                 <table class="table table-striped table-hover table-condensed">
                     <thead>
@@ -22,16 +31,21 @@
                        <th>Nama</th>
                        <th class="right">Nomor Utama</th>
                        <th class="right">Alternatif</th>
-                       <th class="right">Alamat</th>
+                       <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php foreach($contacts as $contact): ?>
                     <tr>
-                        <td width="250px"><span style="cursor: pointer;" onclick="document.location.href='<?php echo site_url('addressbook/edit/'.$contact->id) ?>'"><?php echo $contact->name ?></span></td>
+                        <td><?php echo $contact->name ?></td>
                         <td width="110px"><?php echo $contact->primary ?></td>
                         <td width="110px"><?php echo $contact->alternate ?></td>
-                        <td><?php echo substr($contact->address, 0, 35) ?></td>
+                        <td width="100px">
+                            <div class="btn-group">
+                              <a href="<?php echo site_url('addressbook/edit/'.$contact->id) ?>" class="btn"><i class="icon-wrench"></i> Ubah</a>
+                              <a href="<?php echo site_url('addressbook/delete/'.$contact->id) ?>" class="btn btn-danger"><i class="icon-trash icon-white"></i> Hapus</a>
+                            </div>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                     </tbody>

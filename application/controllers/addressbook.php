@@ -72,8 +72,26 @@ class Addressbook extends CI_Controller {
               $this->contact->edit($id, $data);
             }
 
+            $this->session->set_flashdata('notif_type', 'success');
+            $this->session->set_flashdata('notif_text', 'Data berhasil disimpan');
+
             redirect('addressbook/edit/'.$id);
         }
+    }
+
+    public function delete($user_id)
+    {
+        $result = $this->contact->delete($user_id);
+
+        if($result) {
+            $this->session->set_flashdata('notif_type', 'info');
+            $this->session->set_flashdata('notif_text', 'Data berhasil dihapus');
+        } else {
+            $this->session->set_flashdata('notif_type', 'error');
+            $this->session->set_flashdata('notif_text', 'Data gagal dihapus');
+        }
+
+        redirect('addressbook');
     }
 
     public function ajaxListSearch()
