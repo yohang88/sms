@@ -5,6 +5,7 @@
 ?>
 <form>
     <div class="messagelist-holder">
+    <table class="table table-striped table-hover">
     <?php foreach($messages as $message): ?>
     <?php
         switch($type) {
@@ -25,22 +26,21 @@
                 break;
         }
     ?>
+    <tr><td>
     <div class="messagelist-item" style="cursor: pointer;" onclick="document.location.href='<?php echo site_url('conversation/view/'.$number) ?>'">
-        <?php echo ($c == 'outbox' || $c == 'failed' ? nice_date($message->inserted) : nice_date($message->sent)); ?>
-        <span class="label info"><?php echo $this->contact->getDetail($number)->name; ?></span>
+        <span class="label label-success"><?php echo ($c == 'outbox' || $c == 'failed' ? nice_date($message->inserted) : nice_date($message->sent)); ?></span>
+        <span class="label label-info"><?php echo $this->contact->getDetail($number)->name; ?></span>
         <?php echo substr($message->text, 0, 70); ?>
     </div>
+    </td></tr>
     <?php endforeach; ?>
+    </table>
     </div>
 </form>
 <?php echo $this->pagination->create_links(); ?>
 <?php else: ?>
-<div class="notices">
-    <div class="bg-color-green">
-        <a href="#" class="close"></a>
-        <div class="notice-image"> <i class="icon-flag-2 fg-color-white"></i> </div>
-        <div class="notice-header fg-color-yellow"> Tidak Ada Pesan </div>
-        <div class="notice-text"> Tidak ada pesan dalam kotak </div>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Kosong!</strong> Tidak ada pesan dalam kotak ini.
     </div>
-</div>
 <?php endif; ?>

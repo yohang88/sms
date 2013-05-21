@@ -15,7 +15,7 @@ $config['next_tag_close']  = '</li>';
 $config['prev_link']       = '&laquo;';
 $config['prev_tag_open']   = '<li>';
 $config['prev_tag_close']  = '</li>';
-$config['cur_tag_open']    = '<li><a href="#" class="active">';
+$config['cur_tag_open']    = '<li class="active"><a>';
 $config['cur_tag_close']   = '</a></li>';
 $config['num_tag_open']    = '<li>';
 $config['num_tag_close']   = '</li>';

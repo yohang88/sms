@@ -94,7 +94,8 @@ class Message extends CI_Model {
         }
 
         $sql .= " FROM sms_log
-                  WHERE (`receiver` = '".$with."' OR `sender` = '".$with."') AND (`type` NOT IN ('SCHEDULED', 'QUEUE', 'FAILED'))
+                  # WHERE (`receiver` = '".$with."' OR `sender` = '".$with."') AND (`type` NOT IN ('SCHEDULED', 'QUEUE', 'FAILED'))
+                  WHERE (`receiver` = '".$with."' OR `sender` = '".$with."')
                 ";
 
         if(! $counttotal) {

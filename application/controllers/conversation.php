@@ -28,7 +28,8 @@ class Conversation extends CI_Controller {
 
         $this->pagination->initialize($config);
 
-        $data['messages'] = $messages;
+        $data['with_number'] = $with;
+        $data['messages']    = $messages;
 
         $this->load->view('common/header');
         $this->load->view('conversation/view', $data);

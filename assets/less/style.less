@@ -24,17 +24,11 @@
 @toolbar-border:        #ddd;
 
 
-#nav {
-    background-color: @greenDark;
-    .nav-bar {
-        background-color: @greenDark;
-    }
-}
-
 #header {
-    background-color: @greenLight;
+    padding-top: 100px;
+    background: linear-gradient(45deg, #020031 0%,#6d3353 100%);
     margin-bottom: 20px;
-    h1, a {
+    h1, a, small {
         color: @white;
     }
 }
@@ -46,51 +40,37 @@
 
 .messagelist-holder {
     margin-bottom: 20px;
-
-    .messagelist-item {
-        border-bottom: 1px solid #eee;
-        padding: 5px;
-    }
 }
 
 .conversation-holder {
     margin-bottom: 20px;
 
-    ul.replies {
-        margin: 0;
-
-        li {
-            margin: 0;
-            width: 100%;
-            margin-bottom: 1px;
-            &.sent {
-                background-color: @blueLight;
-                div > {
-                    .date, .author, .text { color: @black }
-                    .date:hover, .author:hover, .text:hover { color: @black }
-                }
-            }
-            &.received {
-                background-color: @greenLight;
-            }
-            div > .avatar {
-                background-color: #eee;
-            }
-            div > .text {
-                margin-bottom: 20px;
-            }
-            div > .status-icon {
-                position: absolute;
-                right: 10px;
-                bottom: 5px;
-            }
-        }
+    div.message-meta {
+        font-size: 9pt;
+    }
+    div.text {
+        margin-bottom: 20px;
     }
 }
 
 .page-sidebar {
     li.active a {
-        background-color: #eee;
+        background-color: #0088cc;
+        color: #fff;
+        [class^="icon-"], [class*=" icon-"] {
+            background-image: url("../img/glyphicons-halflings-white.png");
+        }
+    }
+}
+
+.message-meta {
+    div.meta-label {
+        float: left;
+        clear: both;
+        width: 100px;
+    }
+    div.meta-content {
+        float: left;
     }
 }
 

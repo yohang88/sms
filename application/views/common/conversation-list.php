@@ -1,22 +1,42 @@
 <form>
     <div class="conversation-holder">
-    <ul class="replies">
+        <table class="table table-striped table-hover">
         <?php foreach($messages as $message): ?>
-        <li class="<?php echo ($message->type == 'SENT' ? "sent" : "received"); ?>">
-            <div class="avatar"><img/></div>
-            <div class="reply">
-                <div class="date"><?php echo $message->sent; ?></div>
-                <div class="author"><?php echo $this->contact->getDetail($message->sender)->name; ?></div>
+        <?php
+            $row_class = "";
+            switch($message->type) {
+                case "RECEIVED":
+                    $row_class = "success";
+                    break;
+                case "SENT":
+                    $row_class = "";
+                    break;
+                case "FAILED":
+                    $row_class = "error";
+                    break;
+                case "QUEUE":
+                    $row_class = "warning";
+                    break;
+            }
+        ?>
+        <tr class="<?php echo $row_class; ?>">
+            <td>
                 <div class="text"><?php echo $message->text; ?></div>
-                <div class="status-icon">
-                    <?php if($message->received != NULL && $message->type == 'SENT'): ?>
-                        <i class="icon-checkmark" title="Tersampaikan pada <?php echo $message->received ?>"></i>
-                    <?php endif; ?>
-                </div>
+            </td>
+            <td width="250px">
+            <div class="message-meta">
+                <?php if($message->type == 'SENT'): ?>
+                <div class="meta-label"><i class="icon-pencil"></i> Buat:</div><div class="meta-content"><?php echo $message->inserted; ?></div>
+                <?php endif; ?>
+                <div class="meta-label"><i class="icon-envelope"></i> <?php echo ($message->type == 'RECEIVED' ? "Diterima:" : "Dikirim:"); ?></div><div class="meta-content"><?php echo $message->sent; ?></div>
+                <?php if($message->received != NULL && $message->type == 'SENT'): ?>
+                <div class="meta-label"><i class="icon-ok"></i> Tersampaikan:</div><div class="meta-content"><?php echo $message->received ?></div>
+                <?php endif; ?>
             </div>
-        </li>
+            </td>
+        </tr>
         <?php endforeach; ?>
-    </ul>
+        </table>
     </div>
 </form>
 <?php echo $this->pagination->create_links(); ?>
