@@ -23,16 +23,21 @@
             <td>
                 <div class="text"><?php echo $message->text; ?></div>
             </td>
-            <td width="250px">
+            <td width="200px">
             <div class="message-meta">
                 <?php if($message->type == 'SENT'): ?>
-                <div class="meta-label"><i class="icon-pencil"></i> Buat:</div><div class="meta-content"><?php echo $message->inserted; ?></div>
+                <div class="meta-label"><i class="icon-pencil"></i> Dibuat</div><div class="meta-content"><?php echo $message->inserted; ?></div>
                 <?php endif; ?>
-                <div class="meta-label"><i class="icon-envelope"></i> <?php echo ($message->type == 'RECEIVED' ? "Diterima:" : "Dikirim:"); ?></div><div class="meta-content"><?php echo $message->sent; ?></div>
+                <div class="meta-label"><i class="icon-envelope"></i> <?php echo ($message->type == 'RECEIVED' ? "Diterima" : "Dikirim"); ?></div><div class="meta-content"><?php echo $message->sent; ?></div>
                 <?php if($message->received != NULL && $message->type == 'SENT'): ?>
-                <div class="meta-label"><i class="icon-ok"></i> Tersampaikan:</div><div class="meta-content"><?php echo $message->received ?></div>
+                <div class="meta-label"><i class="icon-ok"></i> Diterima</div><div class="meta-content"><?php echo $message->received ?></div>
                 <?php endif; ?>
             </div>
+            </td>
+            <td width="50px">
+                <div class="btn-group">
+                  <a href="<?php echo site_url('commonmessage/delete/'.$message->id); ?>" class="btn btn-danger"><i class="icon-trash icon-white"></i></a>
+                </div>
             </td>
         </tr>
         <?php endforeach; ?>

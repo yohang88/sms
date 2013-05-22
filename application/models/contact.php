@@ -80,9 +80,7 @@ class Contact extends CI_Model {
         if($query->num_rows() > 0) {
             return $query->row();
         } else {
-            $unknown_number = new stdClass;
-            $unknown_number->name = $number;
-            return $unknown_number;
+            return false;
         }
     }
 

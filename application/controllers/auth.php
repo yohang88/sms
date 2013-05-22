@@ -21,10 +21,11 @@ class Auth extends CI_Controller {
 		$password = $this->input->post('password');
 
 		if($this->user->login($login, $password)) {
-			$this->session->set_flashdata('success_message', 'Berhasil login.');
 			redirect('home');
 		} else {
-			$this->session->set_flashdata('error_message', 'Invalid login or password.');
+			$this->session->set_flashdata('notif_type', 'error');
+			$this->session->set_flashdata('notif_text', 'ID Pengguna dan Password tidak ditemukan');
+
 			redirect('auth');
 		}
 	}

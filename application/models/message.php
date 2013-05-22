@@ -114,4 +114,12 @@ class Message extends CI_Model {
         }
     }
 
+    function delete($id){
+        $result = $this->db->delete('sms_log', array('id' => $id));
+        if($result){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

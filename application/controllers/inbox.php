@@ -25,6 +25,8 @@ class Inbox extends CI_Controller {
         $data['messages']     = $messages;
         $data['type']         = 'received';
 
+        $this->session->set_flashdata('referrer', current_url());
+
 		$this->load->view('common/header');
 		$this->load->view('inbox/index', $data);
 		$this->load->view('common/footer');
