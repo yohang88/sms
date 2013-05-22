@@ -10,6 +10,7 @@ class CommonMessage extends CI_Controller {
 
     public function delete($sms_id)
     {
+        $return_url = $this->session->flashdata('referrer');
         $result = $this->message->delete($sms_id);
 
         if($result) {
@@ -20,7 +21,7 @@ class CommonMessage extends CI_Controller {
             $this->session->set_flashdata('notif_text', 'Data gagal dihapus');
         }
 
-        redirect($this->session->flashdata('referrer'));
+        redirect($return_url);
     }
 
     public function statistic()
