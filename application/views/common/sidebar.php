@@ -1,7 +1,7 @@
 <div class="page-sidebar">
     <ul class="nav nav-tabs nav-stacked">
         <li class="<?php echo active_link('home'); ?>"><a href="<?php echo site_url('home'); ?>"><i class="icon-home"></i> Beranda</a></li>
-        <li class="<?php echo active_link('compose'); ?>"><a href="<?php echo site_url('compose'); ?>"><i class="icon-pencil"></i> Kirim Baru</a></li>
+        <li class="<?php echo active_link('messages'); ?>"><a href="<?php echo site_url('messages/compose'); ?>"><i class="icon-pencil"></i> Kirim Baru</a></li>
         <li class="<?php echo active_link('inbox'); ?>"><a href="<?php echo site_url('inbox'); ?>"><i class="icon-envelope"></i> Kotak Masuk</a></li>
         <li class="<?php echo active_link('outbox'); ?>"><a href="<?php echo site_url('outbox'); ?>"><i class="icon-share-alt"></i> Antrian Kirim</a></li>
         <li class="<?php echo active_link('sent'); ?>"><a href="<?php echo site_url('sent'); ?>"><i class="icon-ok"></i> Terkirim</a></li>

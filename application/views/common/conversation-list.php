@@ -36,7 +36,7 @@
             </td>
             <td width="50px">
                 <div class="btn-group">
-                  <a href="<?php echo site_url('commonmessage/delete/'.$message->id); ?>" class="btn btn-danger"><i class="icon-trash icon-white"></i></a>
+                  <a href="<?php echo site_url('messages/delete/'.$message->id); ?>" class="btn btn-danger"><i class="icon-trash icon-white"></i></a>
                 </div>
             </td>
         </tr>

@@ -13,7 +13,9 @@ class Message extends CI_Model {
 
         if(write_file($filepath, $data))
         {
-            $this->insertQueue($filename, $number, $text);
+            return $this->insertQueue($filename, $number, $text);
+        } else {
+            return false;
         }
 	}
 
@@ -26,7 +28,7 @@ class Message extends CI_Model {
            'text' => $text
         );
 
-        $this->db->insert('sms_log', $data);
+        return $this->db->insert('sms_log', $data);
     }
 
     public function listMessage($type, $counttotal, $offset=0, $limit=20)

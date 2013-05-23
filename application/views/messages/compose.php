@@ -59,9 +59,11 @@ $(document).ready(function() {
                 <?php $this->load->view('common/sidebar'); ?>
             </div>
             <div class="span9">
+                <?php $this->load->view('common/notif_area'); ?>
+
 				<?php echo validation_errors(); ?>
 
-                <?php echo form_open_multipart('compose/send'); ?>
+                <?php echo form_open_multipart('messages/send'); ?>
 
                 <div class="compose-send-option">
 

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Compose extends CI_Controller {
+class Messages extends CI_Controller {
 
    public function __construct()
    {
@@ -8,10 +8,10 @@ class Compose extends CI_Controller {
         $this->user->on_invalid_session('auth');
    }
 
-	public function index()
+	public function compose()
 	{
 		$this->load->view('common/header');
-		$this->load->view('compose/index');
+		$this->load->view('messages/compose');
 		$this->load->view('common/footer');
 	}
 
@@ -26,11 +26,8 @@ class Compose extends CI_Controller {
                 $numbers = $this->input->post('number');
 
                 if ($this->form_validation->run() == FALSE){
-                    return $this->index();
+                    return $this->compose();
                 }
-
-                var_dump($numbers);
-                exit;
 
                 $numbers = explode(',', $numbers);
 
@@ -42,7 +39,7 @@ class Compose extends CI_Controller {
                             $this->message->sendsms($member->primary, $text);
                         }
                     } else {
-                        $this->message->sendsms($number, $text);
+                        $result = $this->message->sendsms($number, $text);
                     }
                 }
 
@@ -53,16 +50,16 @@ class Compose extends CI_Controller {
                 $numbers = $this->input->post('manualvalue');
 
                 if ($this->form_validation->run() == FALSE){
-                    return $this->index();
+                    return $this->compose();
                 }
-
-                var_dump($numbers);
-                exit;
 
                 $numbers = explode(',', $numbers);
 
                 foreach($numbers as $number) {
-                    $this->message->sendsms(trim($number), $text);
+                    $result = $this->message->sendsms(trim($number), $text);
+                    if(!$result) {
+                        break;
+                    }
                 }
 
                 break;
@@ -96,19 +93,87 @@ class Compose extends CI_Controller {
                     {
                         $csv[$field] = implode(",", $tmp[$field]);
                     }
-                    $csv['Field'] = $csvField;
-                    echo json_encode($csv);
-                    exit;
                 }
 
-                $numbers = "";
+                $numbers = $csv["Number"];
+                $numbers = explode(',', $numbers);
+
+                foreach($numbers as $number) {
+                    $result = $this->message->sendsms(trim($number), $text);
+                    if(!$result) {
+                        break;
+                    }
+                }
+
                 break;
 
             default:
-                redirect('compose');
+                redirect('messages/compose');
                 break;
         }
 
-        redirect('outbox');
+        if($result) {
+            $this->session->set_flashdata('notif_type', 'success');
+            $this->session->set_flashdata('notif_text', 'Pesan berhasil dikirim');
+        } else {
+            $this->session->set_flashdata('notif_type', 'error');
+            $this->session->set_flashdata('notif_text', 'Pesan gagal dikirim');
+        }
+
+        redirect('messages/compose');
+    }
+
+
+    public function delete($sms_id)
+    {
+        $return_url = $this->session->flashdata('referrer');
+        $result = $this->message->delete($sms_id);
+
+        if($result) {
+            $this->session->set_flashdata('notif_type', 'success');
+            $this->session->set_flashdata('notif_text', 'Pesan berhasil dihapus');
+        } else {
+            $this->session->set_flashdata('notif_type', 'error');
+            $this->session->set_flashdata('notif_text', 'Pesan gagal dihapus');
+        }
+
+        redirect($return_url);
+    }
+
+    public function statistic()
+    {
+        $this->load->library('OpenFlashChartLib', NULL, 'OFCL');
+        $points = 10;
+        $x = array(6);
+        $yout = array(1);
+        $yin = array(1);
+        $data_1 = array(1,2,3,4);
+        $data_2 = array(1,2,3,4);
+        $data_3 = array(1,2,3,4);
+
+
+        $bar_1 = new bar();
+        $bar_1->set_values(50);
+        $bar_1->set_colour('#639F45');
+        $bar_1->key('incoming', 10 );
+
+        $bar_2 = new bar();
+        $bar_2->set_values(20);
+        $bar_2->set_colour('#21759B');
+        $bar_2->key('outgoing', 10 );
+
+        $y = new y_axis();
+        $y->set_range(0, 100, 10);
+
+        $element1 = $bar_1;
+        $element2 = $bar_2;
+
+        $chart = new open_flash_chart();
+        $chart->add_element($element1);
+        $chart->add_element($element2);
+        $chart->set_y_axis($y);
+
+
+        echo $chart->toPrettyString();
     }
 }

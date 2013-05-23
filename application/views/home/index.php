@@ -14,7 +14,7 @@
             </div>
             <div class="span9" style="text-align: center">
              <img src="<?php echo base_url(); ?>assets/img/logo.png" />
-             <?php $this->load->view('home/statistic'); ?>
+             <?php // $this->load->view('home/statistic'); ?>
              </div>
         </div>
     </div>
