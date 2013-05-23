@@ -91,9 +91,12 @@ class Contact extends CI_Model {
 	}
 
 	function edit($id, $data) {
+        $group = $data['group'];
+        unset($data['group']);
 		$this->db->where('id', $id);
+
 		$result = $this->db->update('sms_contacts', $data);
-        $update_group = $this->updateGroup($id, $data);
+        $update_group = $this->updateGroup($id, $group);
 
 		if($result) {
 			return $id;
@@ -111,10 +114,10 @@ class Contact extends CI_Model {
         }
 	}
 
-    function updateGroup($id, $data)
+    function updateGroup($id, $datagroup)
     {
         $delete_membership = $this->db->delete('sms_contactgroup', array('id_contact' => $id));
-        $groups            = $data['group'];
+        $groups            = $datagroup;
         $groups            = explode(',', $groups);
 
         if(!empty($groups[0])) {

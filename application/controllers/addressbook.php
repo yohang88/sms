@@ -31,8 +31,10 @@ class Addressbook extends CI_Controller {
 
     public function add()
     {
+        $data['groups'] = json_encode($this->contactgroup->getUserGroup());
+
 		$this->load->view('common/header');
-		$this->load->view('addressbook/form-contact');
+		$this->load->view('addressbook/form-contact', $data);
 		$this->load->view('common/footer');
     }
 

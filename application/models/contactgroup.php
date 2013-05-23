@@ -115,8 +115,11 @@ class ContactGroup extends CI_Model {
         }
     }
 
-    public function getUserGroup($user_id)
+    public function getUserGroup($user_id=0)
     {
+        if($user_id == 0)
+            return array();
+
         $sql = "
             SELECT b.id, b.name
             FROM sms_contactgroup a
