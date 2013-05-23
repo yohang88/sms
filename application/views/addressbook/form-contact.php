@@ -1,3 +1,22 @@
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/token-input.css" type="text/css" />
+
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.autogrow-textarea.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.tokeninput.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#address").autogrow();
+
+    $("#group").tokenInput("<?php echo site_url('group/ajaxListGroupSearch') ?>", {
+        animateDropdown: false,
+        method: "POST",
+        preventDuplicates: true,
+        searchingText: "Sedang mencari dari buku telepon...",
+        hintText: "Ketik nama yang akan dimasukkan",
+        noResultsText: "Tidak ditemukan dalam buku telepon",
+        prePopulate: <?php echo $groups ?>
+    });
+});
+</script>
 <div id="header">
     <div class="container">
         <div class="page-header">
@@ -22,42 +41,42 @@
                 <div class="control-group">
                 <label class="control-label">Nama Lengkap</label>
                 <div class="controls">
-                    <input name="name" type="text" placeholder="Nama Lengkap" value="<?php echo @field(set_value('name'), $detail->name) ?>" />
+                    <input name="name" type="text" class="span5" placeholder="Nama Lengkap" value="<?php echo @field(set_value('name'), $detail->name) ?>" />
                 </div>
                 </div>
 
                 <div class="control-group">
                 <label class="control-label">Nomor Telepon</label>
                 <div class="controls">
-                    <input name="primary" type="text" placeholder="Nomor Telepon" value="<?php echo @field(set_value('primary'), $detail->primary); ?>" />
+                    <input name="primary" type="text" class="span5" placeholder="Nomor Telepon" value="<?php echo @field(set_value('primary'), $detail->primary); ?>" />
                 </div>
                 </div>
 
                 <div class="control-group">
                 <label class="control-label">Nomor Alternatif</label>
                 <div class="controls">
-                    <input name="alternate" type="text" placeholder="Nomor Alternatif" value="<?php echo @field(set_value('alternate'), $detail->alternate) ?>" />
+                    <input name="alternate" type="text" class="span5" placeholder="Nomor Alternatif" value="<?php echo @field(set_value('alternate'), $detail->alternate) ?>" />
                 </div>
                 </div>
 
                 <div class="control-group">
                 <label class="control-label">Alamat</label>
                 <div class="controls">
-                    <textarea name="address" placeholder="Alamat"><?php echo @field(set_value('address'), $detail->address) ?></textarea>
+                    <textarea id="address" name="address" placeholder="Alamat" class="span5"><?php echo @field(set_value('address'), $detail->address) ?></textarea>
                 </div>
                 </div>
 
                 <div class="control-group">
-                <label class="control-label">Nama Lengkap</label>
+                <label class="control-label">Alamat Email</label>
                 <div class="controls">
-                    <input name="email" type="text" placeholder="Alamat Email" value="<?php echo @field(set_value('email'), $detail->email) ?>" />
+                    <input name="email" type="text" class="span5" placeholder="Alamat Email" value="<?php echo @field(set_value('email'), $detail->email) ?>" />
                 </div>
                 </div>
 
                 <div class="control-group">
-                <label class="control-label">Nama Lengkap</label>
+                <label class="control-label">Group</label>
                 <div class="controls">
-                    <input name="group" type="text" placeholder="Group" />
+                    <input id="group" name="group" type="text" class="span5" placeholder="Group" />
                 </div>
                 </div>
 

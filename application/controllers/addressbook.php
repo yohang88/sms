@@ -39,6 +39,7 @@ class Addressbook extends CI_Controller {
     public function edit($id)
     {
         $data['detail'] = $this->contact->getDetail($id);
+        $data['groups'] = json_encode($this->contactgroup->getUserGroup($id));
 
 		$this->load->view('common/header');
 		$this->load->view('addressbook/form-contact', $data);
@@ -59,12 +60,13 @@ class Addressbook extends CI_Controller {
               return $this->add();
             }
         } else {
-            $data = array();
-            $data['name'] = $this->input->post('name');
-            $data['primary'] = $this->input->post('primary');
+            $data              = array();
+            $data['name']      = $this->input->post('name');
+            $data['primary']   = $this->input->post('primary');
             $data['alternate'] = $this->input->post('alternate');
-            $data['address'] = $this->input->post('address');
-            $data['email'] = $this->input->post('email');
+            $data['address']   = $this->input->post('address');
+            $data['email']     = $this->input->post('email');
+            $data['group']     = $this->input->post('group');
 
             if($id == 'X'){
               $id = $this->contact->add($data);

@@ -93,14 +93,16 @@ class Contact extends CI_Model {
 	function edit($id, $data) {
 		$this->db->where('id', $id);
 		$result = $this->db->update('sms_contacts', $data);
-		if($result){
+        $update_group = $this->updateGroup($id, $data);
+
+		if($result) {
 			return $id;
 		} else {
 			return false;
 		}
 	}
 
-	function delete($id){
+	function delete($id) {
 		$result = $this->db->delete('sms_contacts', array('id' => $id));
         if($result){
             return true;
@@ -108,4 +110,17 @@ class Contact extends CI_Model {
             return false;
         }
 	}
+
+    function updateGroup($id, $data)
+    {
+        $delete_membership = $this->db->delete('sms_contactgroup', array('id_contact' => $id));
+        $groups            = $data['group'];
+        $groups            = explode(',', $groups);
+
+        if(!empty($groups[0])) {
+            foreach($groups as $group) {
+                $this->db->insert('sms_contactgroup', array('id_group' => $group, 'id_contact' => $id) );
+            }
+        }
+    }
 }

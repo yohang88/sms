@@ -61,6 +61,15 @@ class Group extends CI_Controller {
         echo json_encode($search);
     }
 
+    public function ajaxListGroupSearch()
+    {
+        $query = $this->input->post('q', TRUE);
+
+        $search = $this->contactgroup->ajaxListGroupSearch($query);
+        header('Content-type: application/json');
+        echo json_encode($search);
+    }
+
     public function getDetail($id)
     {
         $sql = "
@@ -106,8 +115,8 @@ class Group extends CI_Controller {
                 return $this->add();
             }
         } else {
-            $data = array();
-            $data['name'] = $this->input->post('name');
+            $data              = array();
+            $data['name']      = $this->input->post('name');
 
             if($id == 'X'){
                 $id = $this->contactgroup->add($data);

@@ -81,6 +81,24 @@ class ContactGroup extends CI_Model {
         }
     }
 
+    public function ajaxListGroupSearch($query)
+    {
+        $sql = "
+            SELECT id, name
+            FROM sms_groups
+            WHERE name LIKE '%".$query."%'
+            ORDER BY name ASC
+        ";
+
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        }
+    }
+
     public function getDetail($id)
     {
         $sql = "
@@ -97,6 +115,25 @@ class ContactGroup extends CI_Model {
         }
     }
 
+    public function getUserGroup($user_id)
+    {
+        $sql = "
+            SELECT b.id, b.name
+            FROM sms_contactgroup a
+            JOIN sms_groups b ON (a.id_group = b.id)
+            WHERE a.id_contact = ".$user_id."
+            ORDER BY name ASC
+        ";
+
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return array();
+        }
+    }
+
 	function add($data) {
 		$this->db->insert('sms_groups', array('id' => NULL) );
 		$id = $this->db->insert_id();
@@ -106,27 +143,28 @@ class ContactGroup extends CI_Model {
 	function edit($id, $data) {
 		$this->db->where('id', $id);
 		$result = $this->db->update('sms_groups', $data);
-		if($result){
+
+		if($result) {
 			return $id;
 		} else {
 			return false;
 		}
 	}
 
-	function delete($id){
+	function delete($id) {
 		$result = $this->db->delete('sms_groups', array('id' => $id));
         $result_member = $this->db->delete('sms_contactgroup', array('id_group' => $id));
-        
+
 		if($result && $result_member) {
 			return true;
 		} else {
 			return false;
-		}        
+		}
 	}
 
     function addMember($group_id, $user_id) {
         $result = $this->db->insert('sms_contactgroup', array('id_contact' => $user_id, 'id_group' => $group_id));
-        
+
 		if($result){
 			return true;
 		} else {
@@ -136,7 +174,7 @@ class ContactGroup extends CI_Model {
 
     function delMember($group_id, $user_id){
         $result = $this->db->delete('sms_contactgroup', array('id_contact' => $user_id, 'id_group' => $group_id));
-        
+
         if($result){
             return true;
         } else {
