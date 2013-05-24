@@ -22,21 +22,22 @@
                 <div class="clearfix"></div>
                 </div>
 
-                <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog">
 
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h3 id="myModalLabel">Modal header</h3>
+                    <h3 id="myModalLabel">Impor Excel</h3>
                   </div>
+
                   <div class="modal-body">
-                    <?php echo form_open(site_url('addressbook/import')) ?>
+                    <?php echo form_open_multipart(site_url('addressbook/import')) ?>
+                    <p>Pilih File Excel format CSV yang ingin diimpor</p>
                     <input type="file" name="import_file" id="import_file" class="span6" />
-                    <h1>Coba</h1>
-                    <?php echo form_close() ?>
                   </div>
                   <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button class="btn" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Impor</button>
+                    <?php echo form_close() ?>
                   </div>
 
                 </div>

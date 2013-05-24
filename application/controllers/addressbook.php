@@ -98,6 +98,49 @@ class Addressbook extends CI_Controller {
         redirect('addressbook');
     }
 
+    public function import()
+    {
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'csv';
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('import_file'))
+        {
+            echo "error";
+        }
+        else
+        {
+            $data = $this->upload->data();
+            $this->load->library('csvreader');
+            $filePath = $data["full_path"];
+
+            $csvData = $this->csvreader->parse_file($filePath, true);
+
+            foreach($csvData as $row)
+            {
+                $data              = array();
+                $data['name']      = $row["Name"];
+                $data['primary']   = $row["Number"];
+                $data['alternate'] = $row["Alternate"];
+                $data['address']   = $row["Address"];
+                $data['email']     = $row["Email"];
+                $data['group']     = '';
+                $result = $this->contact->add($data);
+                // var_dump($result);
+                //if(!$result) {
+                    //break;
+                //}
+            }
+            // exit;
+
+            $this->session->set_flashdata('notif_type', 'success');
+            $this->session->set_flashdata('notif_text', 'Data berhasil diimpor');
+        }
+
+
+        redirect('addressbook');
+    }
+
     public function ajaxListSearch()
     {
         $query = $this->input->post('q', TRUE);
