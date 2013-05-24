@@ -105,6 +105,11 @@ class Contact extends CI_Model {
 		}
 	}
 
+    function importCSV($data)
+    {
+        return $this->db->insert('sms_contacts', $data);
+    }
+
 	function delete($id) {
 		$result = $this->db->delete('sms_contacts', array('id' => $id));
         if($result){

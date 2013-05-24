@@ -124,8 +124,7 @@ class Addressbook extends CI_Controller {
                 $data['alternate'] = $row["Alternate"];
                 $data['address']   = $row["Address"];
                 $data['email']     = $row["Email"];
-                $data['group']     = '';
-                $result = $this->contact->add($data);
+                $result = $this->contact->importCSV($data);
                 // var_dump($result);
                 //if(!$result) {
                     //break;
