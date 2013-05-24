@@ -9,6 +9,6 @@
         <li class="<?php echo active_link('scheduled'); ?>"><a href="<?php echo site_url('scheduled'); ?>"><i class="icon-time"></i> Pengiriman Terjadwal</a></li>
         <li class="<?php echo active_link('addressbook'); ?>"><a href="<?php echo site_url('addressbook'); ?>"><i class="icon-user"></i> Buku Telepon</a></li>
         <li class="<?php echo active_link('group'); ?>"><a href="<?php echo site_url('group'); ?>"><i class="icon-tags"></i> Group</a></li>
-        <li><a href="<?php echo site_url('auth/logout'); ?>">Log out Pengguna</a></li -->
+        <li><a href="<?php echo site_url('auth/logout'); ?>"><i class="icon-signout"></i> Log out Pengguna</a></li -->
     </ul>
 </div>
