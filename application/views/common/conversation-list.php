@@ -17,11 +17,14 @@
                 case "QUEUE":
                     $row_class = "warning";
                     break;
+                case "SCHEDULED":
+                    $row_class = "info";
+                    break;
             }
         ?>
         <tr class="<?php echo $row_class; ?>">
             <td>
-                <div class="text"><?php echo $message->text; ?></div>
+                <div class="text"><?php echo nl2br($message->text); ?></div>
             </td>
             <td width="200px">
             <div class="message-meta">

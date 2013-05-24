@@ -121,10 +121,10 @@ class Messages extends CI_Controller {
 
         if($result) {
             $this->session->set_flashdata('notif_type', 'success');
-            $this->session->set_flashdata('notif_text', 'Pesan berhasil dikirim');
+            $this->session->set_flashdata('notif_text', 'Pesan berhasil masuk antrian kirim, silahkan lihat menu Antrian Kirim.');
         } else {
             $this->session->set_flashdata('notif_type', 'error');
-            $this->session->set_flashdata('notif_text', 'Pesan gagal dikirim');
+            $this->session->set_flashdata('notif_text', 'Pesan gagal masuk antrian kirim');
         }
 
         redirect('messages/compose');

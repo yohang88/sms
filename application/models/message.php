@@ -11,10 +11,12 @@ class Message extends CI_Model {
 
         $data .= "To: ".$number."\n";
 
-        if(!empty($schedule))
+        if(!empty($schedule)) {
+            $filepath = PATHSCHEDULED . DS . $filename;
             $data .= "Send: ".$schedule."\n";
+        }
 
-        $data .= $text;
+        $data .= "\n" . $text;
 
         if(write_file($filepath, $data))
         {
@@ -33,8 +35,10 @@ class Message extends CI_Model {
            'text' => $text
         );
 
-        if(!empty($schedule))
+        if(!empty($schedule)) {
             $data['sent'] = $schedule;
+            $data['type'] = 'SCHEDULED';
+        }
 
         return $this->db->insert('sms_log', $data);
     }
