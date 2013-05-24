@@ -147,6 +147,16 @@ class Messages extends CI_Controller {
         redirect($return_url);
     }
 
+    public function getMessageCount()
+    {
+        $count           = array();
+        $count['inbox']  = 6;
+        $count['outbox'] = 72;
+        $count['failed'] = 5;
+        header('Content-type: application/json');
+        echo json_encode($count);
+    }
+
     public function statistic()
     {
         $this->load->library('OpenFlashChartLib', NULL, 'OFCL');
