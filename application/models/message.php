@@ -2,24 +2,29 @@
 
 class Message extends CI_Model {
 
-	public function sendsms($number, $text)
+	public function sendsms($number, $text, $schedule="")
 	{
         $filename = generateRandomString(10);
 
         $filepath = PATHOUTGOING . DS . $filename;
+        $data = "";
 
-        $data = "To: ".$number."\n";
-        $data .= "\n\n" . $text;
+        $data .= "To: ".$number."\n";
+
+        if(!empty($schedule))
+            $data .= "Send: ".$schedule."\n";
+
+        $data .= $text;
 
         if(write_file($filepath, $data))
         {
-            return $this->insertQueue($filename, $number, $text);
+            return $this->insertQueue($filename, $number, $text, $schedule);
         } else {
             return false;
         }
 	}
 
-    public function insertQueue($filename, $number, $text)
+    public function insertQueue($filename, $number, $text, $schedule="")
     {
         $data = array(
            'filename' => $filename,
@@ -27,6 +32,9 @@ class Message extends CI_Model {
            'receiver' => $number,
            'text' => $text
         );
+
+        if(!empty($schedule))
+            $data['sent'] = $schedule;
 
         return $this->db->insert('sms_log', $data);
     }

@@ -3,10 +3,19 @@
 
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.autogrow-textarea.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.tokeninput.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
     $("#text").autogrow();
+
+    var img_path = '<?php echo base_url(); ?>assets/img/';
+    $(".datepicker").datepicker({
+        minDate: 0, maxDate: '+1Y',
+        dateFormat: 'yy-mm-dd', showOn: 'button', buttonImage: img_path + 'calendar.gif', buttonImageOnly: false
+    });
+
+    $(".ui-datepicker-trigger").addClass('btn');
 
     $("#phone").tokenInput("<?php echo site_url('addressbook/ajaxListSearch2') ?>", {
         theme: "facebook",
@@ -101,6 +110,16 @@ $(document).ready(function() {
                 <div class="input-control textarea">
                     <textarea id="text" name="text" placeholder="Isi Pesan" class="word_count span6" rows="4"></textarea>
                     <div><span class="counter"></span></div>
+                </div>
+
+                <br />
+                <label>Jadwal Pengiriman</label>
+                <div>
+                <div class="input-append">
+                    <input name="date" type="text" placeholder="Jadwal Pengiriman" id="date" class="datepicker span2" />
+                </div>
+                <select name="hour" class="span1"><?php echo get_hour();?></select> :
+                <select name="minute" class="span1"><?php echo get_minute();?></select>
                 </div>
 
                 <div class="form-actions">

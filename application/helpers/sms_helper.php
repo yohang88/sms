@@ -93,3 +93,24 @@ if ( ! function_exists('active_link'))
         return ($class == $controller) ? 'active' : '';
     }
 }
+
+
+function get_hour()
+{
+    for($i=0;$i<24;$i++)
+    {
+        $hour = $i;
+        if($hour<10) $hour = "0".$hour;
+        echo "<option value=\"".$hour."\">".$hour."</option>";
+    }
+}
+
+function get_minute()
+{
+    for($i=0;$i<60;$i=$i+5)
+    {
+        $min = $i;
+        if($min<10) $min = "0".$min;
+        echo "<option value=\"".$min."\">".$min."</option>";
+    }
+}

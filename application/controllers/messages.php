@@ -19,6 +19,13 @@ class Messages extends CI_Controller {
     {
         $sendoption = $this->input->post('sendoption');
         $text       = $this->input->post('text');
+        $date       = $this->input->post('date');
+        $hour       = $this->input->post('hour');
+        $minute     = $this->input->post('minute');
+
+        $datetime = "";
+        if(!empty($date))
+            $datetime = $date . ' ' . implode(':', array($hour, $minute, '00'));
 
         switch ($sendoption) {
             case 'sendoption1':
@@ -36,10 +43,10 @@ class Messages extends CI_Controller {
                         $group_id = substr($number,1);
                         $memberlist = $this->contactgroup->getMemberList($group_id);
                         foreach($memberlist as $member) {
-                            $this->message->sendsms($member->primary, $text);
+                            $this->message->sendsms($member->primary, $text, $datetime);
                         }
                     } else {
-                        $result = $this->message->sendsms($number, $text);
+                        $result = $this->message->sendsms($number, $text, $datetime);
                     }
                 }
 
