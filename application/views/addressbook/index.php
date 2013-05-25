@@ -1,11 +1,11 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Buku Telepon <small>daftar kontak</small></h1>
+            <h1><i class="icon-wrench icon-large"></i> Buku Telepon</h1>
         </div>
     </div>
 </div>
-
+<?php $this->load->view('common/subheader'); ?>
 <div id="content">
     <div class="container">
         <div class="row">
@@ -15,6 +15,13 @@
             <div class="span9">
 
                 <div class="toolbar">
+                <div class="input-append">
+                  <?php echo form_open(site_url('addressbook/search')) ?>
+                  <input class="span3" name="search" placeholder="Cari nama, nomor telepon..." type="text" value="<?php echo @field($search,''); ?>" />
+                  <button class="btn" type="submit"><i class="icon-search"></i> Cari</button>
+                  <a href="<?php echo site_url('addressbook') ?>" class="btn"><i class="icon-asterisk"></i> Tampil Semua</a>
+                  <?php echo form_close() ?>
+                </div>
                 <div class="btn-group pull-right">
                     <a href="<?php echo site_url('addressbook/add') ?>" class="btn btn-success"><i class="icon-plus icon-white"></i> Tambah</a>
                     <a href="#myModal" role="button" class="btn" data-toggle="modal"><i class="icon-th-list"></i> Impor Excel</a>

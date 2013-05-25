@@ -17,7 +17,7 @@ class Conversation extends CI_Controller {
     {
         $this->load->library('pagination');
 
-        $per_page              = $this->config->item('pagination_page_limit');
+        $per_page              = $this->config->item('conversation_page_limit');
         $messages              = $this->message->listConversation($with, false, $offset, $per_page);
         $message_total         = (int) $this->message->listConversation($with, true);
 

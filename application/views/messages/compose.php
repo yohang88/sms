@@ -59,7 +59,7 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
-
+<?php $this->load->view('common/subheader'); ?>
 
 <div id="content">
     <div class="container">
@@ -108,7 +108,10 @@ $(document).ready(function() {
                 </div> <!-- // compose-send-option -->
 
                 <div class="input-control textarea">
-                    <textarea id="text" name="text" placeholder="Isi Pesan" class="word_count span6" rows="4"></textarea>
+                    <?php
+                        $sms_signature = $this->configurations->getConfig('sms_signature');
+                    ?>
+                    <textarea id="text" name="text" placeholder="Isi Pesan" class="word_count span6" rows="4"><?php if(!empty($sms_signature)) echo "\n\n\n" . $sms_signature; ?></textarea>
                     <div><span class="counter"></span></div>
                 </div>
 
@@ -116,7 +119,7 @@ $(document).ready(function() {
                 <label>Jadwal Pengiriman</label>
                 <div>
                 <div class="input-append">
-                    <input name="date" type="text" placeholder="Jadwal Pengiriman" id="date" class="datepicker span2" />
+                    <input name="date" type="text" placeholder="Tanggal Pengiriman" id="date" class="datepicker span2" />
                 </div>
                 <select name="hour" class="span1"><?php echo get_hour();?></select> :
                 <select name="minute" class="span1"><?php echo get_minute();?></select>

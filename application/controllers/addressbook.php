@@ -29,6 +29,39 @@ class Addressbook extends CI_Controller {
 		$this->load->view('common/footer');
 	}
 
+    public function search($query="", $offset=0)
+    {
+        $search = $this->input->post('search');
+        if(empty($search)) {
+            $search = $query;
+        }
+
+        if(empty($search)) {
+            redirect('addressbook');
+        }
+
+        $data['search'] = $search;
+
+        $this->load->library('pagination');
+
+        $per_page              = $this->config->item('pagination_page_limit');
+        $contacts              = $this->contact->getList($offset, $per_page, $search);
+        $contact_total         = (int) $this->contact->getTotal($search);
+
+        $config['base_url']    = site_url('addressbook/search/'.$search);
+        $config['uri_segment'] = 4;
+        $config['total_rows']  = $contact_total;
+        $config['per_page']    = $per_page;
+
+        $this->pagination->initialize($config);
+
+        $data['contacts']     = $contacts;
+
+        $this->load->view('common/header');
+        $this->load->view('addressbook/index', $data);
+        $this->load->view('common/footer');
+    }
+
     public function add()
     {
         $data['groups'] = json_encode($this->contactgroup->getUserGroup());

@@ -2,12 +2,18 @@
 
 class Contact extends CI_Model {
 
-    public function getList($offset=0, $limit=20)
+    public function getList($offset=0, $limit=20, $search="")
     {
-        $sql = "
+        $sql = "";
+        $sql .= "
             SELECT *
-            FROM sms_contacts
-            ORDER BY name ASC
+            FROM sms_contacts";
+
+        if(!empty($search)) {
+            $sql .= " WHERE name LIKE '%".$search."%' OR `primary` LIKE '%".$search."%' OR alternate LIKE '%".$search."%' ";
+        }
+
+        $sql .= " ORDER BY name ASC
             LIMIT ".$offset.",".$limit."
         ";
 
@@ -20,12 +26,16 @@ class Contact extends CI_Model {
         }
     }
 
-    public function getTotal()
+    public function getTotal($search="")
     {
         $sql = "
             SELECT COUNT(*) AS total
             FROM sms_contacts
         ";
+
+        if(!empty($search)) {
+            $sql .= " WHERE name LIKE '%".$search."%' OR `primary` LIKE '%".$search."%' OR alternate LIKE '%".$search."%' ";
+        }
 
         $query = $this->db->query($sql);
 
