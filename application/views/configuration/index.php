@@ -43,7 +43,7 @@
                 <div class="control-group">
                 <label class="control-label">Isi Pesan</label>
                 <div class="controls">
-                    <textarea id="signature" name="signature" placeholder="Isi Pesan" class="span5"><?php echo $config->sms_signature; ?></textarea>
+                    <textarea id="signature" name="signature" placeholder="Isi Pesan" rows="4" class="span5"><?php echo $config->sms_signature; ?></textarea>
                 </div>
                 </div>
                 </fieldset>
