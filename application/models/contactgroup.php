@@ -2,13 +2,18 @@
 
 class ContactGroup extends CI_Model {
 
-    public function getList($offset=0, $limit=20)
+    public function getList($offset=0, $limit=20, $search="")
     {
         $sql = "
             SELECT a.id, name, IFNULL((SELECT COUNT(*) FROM sms_contactgroup b WHERE b.id_group = a.id GROUP BY b.id_group),0) as membercount
-            FROM sms_groups a
-            ORDER BY name ASC
-            LIMIT ".$offset.",".$limit."
+            FROM sms_groups a ";
+
+        if(!empty($search)) {
+            $sql .= " WHERE name LIKE '%".$search."%' ";
+        }
+
+        $sql .=  "ORDER BY name ASC
+                  LIMIT ".$offset.",".$limit."
         ";
 
         $query = $this->db->query($sql);
@@ -20,12 +25,16 @@ class ContactGroup extends CI_Model {
         }
     }
 
-    public function getGroupCount()
+    public function getGroupCount($search="")
     {
         $sql = "
             SELECT COUNT(*) AS total
             FROM sms_groups a
         ";
+
+        if(!empty($search)) {
+            $sql .= " WHERE name LIKE '%".$search."%' ";
+        }
 
         $query = $this->db->query($sql);
 

@@ -29,6 +29,39 @@ class Group extends CI_Controller {
 		$this->load->view('common/footer');
 	}
 
+    public function search($query="", $offset=0)
+    {
+        $search = $this->input->post('search');
+        if(empty($search)) {
+            $search = $query;
+        }
+
+        if(empty($search)) {
+            redirect('addressbook');
+        }
+
+        $data['search'] = $search;
+
+        $this->load->library('pagination');
+
+        $per_page              = $this->config->item('pagination_page_limit');
+        $groups                = $this->contactgroup->getList($offset, $per_page, $search);
+        $group_total           = (int) $this->contactgroup->getGroupCount($search);
+
+        $config['base_url']    = site_url('group/search/'.$search);
+        $config['uri_segment'] = 4;
+        $config['total_rows']  = $group_total;
+        $config['per_page']    = $per_page;
+
+        $this->pagination->initialize($config);
+
+        $data['groups'] = $groups;
+
+        $this->load->view('common/header');
+        $this->load->view('group/index', $data);
+        $this->load->view('common/footer');
+    }
+
     public function memberlist($group_id, $offset=0)
     {
         $this->load->library('pagination');
