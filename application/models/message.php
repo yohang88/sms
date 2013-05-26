@@ -137,9 +137,22 @@ class Message extends CI_Model {
         }
     }
 
+    public function isInboxHaveUnread($number)
+    {
+        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = 'RECEIVED' AND `flag` = 'U' AND `sender` = '".$number."'";
+        $query = $this->db->query($sql);
+        $total = $query->row()->total;
+
+        if($total > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getInboxUnreadCount()
     {
-        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = 'RECEIVED' AND `flag` IS NULL ";
+        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = 'RECEIVED' AND `flag` = 'U' ";
         $query = $this->db->query($sql);
         return $query->row()->total;
     }

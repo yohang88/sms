@@ -17,6 +17,12 @@
                 break;
             case 'received';
                 $number = $message->sender;
+                $isInboxHaveUnread = $this->message->isInboxHaveUnread($number);
+                if($isInboxHaveUnread) {
+                    $class_unread = ' class="warning"';
+                } else {
+                    $class_unread = '';
+                }
                 break;
            case 'queue';
                 $number = $message->receiver;
@@ -24,9 +30,10 @@
            case 'failed';
                 $number = $message->receiver;
                 break;
-        }
+        };
+
     ?>
-    <tr><td>
+    <tr<?php echo $class_unread ?>><td>
     <div class="messagelist-item" style="cursor: pointer;" onclick="document.location.href='<?php echo site_url('conversation/view/'.$number) ?>'">
         <span class="label label-success"><?php echo ($c == 'outbox' || $c == 'failed' ? nice_date($message->inserted) : nice_date($message->sent)); ?></span>
         <span class="label label-info"><?php echo ($this->contact->getDetail($number) ? $this->contact->getDetail($number)->name : $number); ?></span>
