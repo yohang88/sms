@@ -5,7 +5,7 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Kotak Keluar <small>sms antrian keluar</small></h1>
+            <h1><i class="icon-upload-alt icon-large"></i> Kotak Antrian Keluar</h1>
         </div>
     </div>
 </div>

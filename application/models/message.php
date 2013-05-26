@@ -206,4 +206,11 @@ class Message extends CI_Model {
         $query = $this->db->query($sql);
         return $query->row()->total;
     }
+
+    public function getScheduledCount()
+    {
+        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = 'SCHEDULED' ";
+        $query = $this->db->query($sql);
+        return $query->row()->total;
+    }
 }

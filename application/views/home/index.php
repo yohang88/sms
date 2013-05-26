@@ -1,7 +1,7 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-                <h1>Halaman Depan <small>sms center</small></h1>
+            <h1><i class="icon-home icon-large"></i> Halaman Depan</h1>
         </div>
     </div>
 </div>

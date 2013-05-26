@@ -30,7 +30,6 @@
             </div>
 
             <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog">
-
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <h3 id="myModalLabel">Impor Excel</h3>
@@ -46,8 +45,7 @@
                 <button class="btn" data-dismiss="modal">Batal</button>
                 <?php echo form_close() ?>
             </div>
-
-        </div>
+            </div>
 
         <?php $this->load->view('common/notif_area'); ?>
 
@@ -55,13 +53,13 @@
             <table class="table table-striped table-hover table-condensed">
                 <thead>
                     <tr>
-                     <th>Nama</th>
-                     <th class="right">Nomor Utama</th>
-                     <th class="right">Alternatif</th>
-                     <th></th>
-                 </tr>
-             </thead>
-             <tbody>
+                       <th>Nama</th>
+                       <th class="right">Nomor Utama</th>
+                       <th class="right">Alternatif</th>
+                       <th></th>
+                   </tr>
+               </thead>
+               <tbody>
                 <?php foreach($contacts as $contact): ?>
                 <tr>
                     <td><?php echo $contact->name ?></td>

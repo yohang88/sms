@@ -56,7 +56,7 @@ $(document).ready(function() {
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Kirim Baru <small>sms</small></h1>
+            <h1><i class="icon-edit icon-large"></i> Kirim Pesan Baru</h1>
         </div>
     </div>
 </div>
@@ -110,10 +110,29 @@ $(document).ready(function() {
 
                 <div class="input-control textarea">
                     <?php
-                        $sms_signature = $this->configurations->getConfig('sms_signature');
+                        $sms_signature_enable = $this->configurations->getConfig('sms_signature_enable');
+                        $sms_signature        = $this->configurations->getConfig('sms_signature');
                     ?>
-                    <textarea id="text" name="text" placeholder="Isi Pesan" class="word_count span6" rows="4"><?php if(!empty($sms_signature)) echo "\n\n\n" . $sms_signature; ?></textarea>
+                    <textarea id="text" name="text" placeholder="Isi Pesan" class="word_count span6" rows="4"><?php if($sms_signature_enable AND !empty($sms_signature)) echo "\n\n\n" . $sms_signature; ?></textarea>
+                        <a href="#myModal" role="button" class="btn btn-success" data-toggle="modal" style="vertical-align:top"><i class="icon-bolt"></i> Ambil Template</a>
                     <div><span class="counter"></span></div>
+                </div>
+
+                <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 id="myModalLabel">Ambil Template</h3>
+                </div>
+
+                <div class="modal-body">
+                    <?php echo form_open_multipart(site_url('addressbook/import')) ?>
+                    <p>Pilih Template yang akan dimasukkan ke dalam pesan</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"><i class="icon-ok-circle"></i> Masukkan ke Pesan</button>
+                    <button class="btn" data-dismiss="modal">Batal</button>
+                    <?php echo form_close() ?>
+                </div>
                 </div>
 
                 <br />

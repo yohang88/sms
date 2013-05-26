@@ -5,7 +5,7 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Pengiriman Terjadwal <small>sms keluar</small></h1>
+            <h1><i class="icon-time icon-large"></i> Pengiriman Terjadwal</h1>
         </div>
     </div>
 </div>

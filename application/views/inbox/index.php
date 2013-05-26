@@ -5,7 +5,7 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Kotak Masuk <small>sms diterima</small></h1>
+            <h1><i class="icon-inbox icon-large"></i> Kotak Masuk</h1>
         </div>
     </div>
 </div>

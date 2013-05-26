@@ -164,10 +164,11 @@ class Messages extends CI_Controller {
     {
         $this->session->keep_flashdata('return_url');
 
-        $count           = array();
-        $count['unresponded']  = $this->message->getUnrespondedContactCount();
-        $count['outbox'] = $this->message->getOutgoingCount();
-        $count['failed'] = $this->message->getFailedCount();
+        $count                = array();
+        $count['unresponded'] = $this->message->getUnrespondedContactCount();
+        $count['outbox']      = $this->message->getOutgoingCount();
+        $count['failed']      = $this->message->getFailedCount();
+        $count['scheduled']   = $this->message->getScheduledCount();
         header('Content-type: application/json');
         echo json_encode($count);
     }

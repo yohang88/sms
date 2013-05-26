@@ -21,6 +21,12 @@ $(document).ready(function() {
             } else {
                 $('#counter_failed').html("");
             }
+
+            if(data.scheduled > 0) {
+                $('#counter_scheduled').html(data.scheduled);
+            } else {
+                $('#counter_scheduled').html("");
+            }
             setTimeout(doPoll,5000);
         });
     };

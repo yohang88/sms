@@ -4,7 +4,7 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Interaksi</h1>
+            <h1><i class="icon-exchange icon-large"></i> Interaksi</h1>
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Kotak Terkirim <small>sms terkirim</small></h1>
+            <h1><i class="icon-check icon-large"></i> Kotak Terkirim</h1>
         </div>
     </div>
 </div>

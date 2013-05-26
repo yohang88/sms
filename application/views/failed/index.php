@@ -1,7 +1,7 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Kotak Tidak Terkirim <small>sms</small></h1>
+            <h1><i class="icon-warning-sign icon-large"></i> Kotak Tidak Terkirim</h1>
         </div>
     </div>
 </div>
