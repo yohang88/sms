@@ -33,6 +33,8 @@ class Conversation extends CI_Controller {
 
         $this->session->set_flashdata('return_url', current_url());
 
+        $this->message->setRespondedContact($with);
+
         $this->load->view('common/header');
         $this->load->view('conversation/view', $data);
         $this->load->view('common/footer');

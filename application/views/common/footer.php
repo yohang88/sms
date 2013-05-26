@@ -4,10 +4,10 @@ $(document).ready(function() {
     function doPoll() {
         $.post("<?php echo site_url('messages/getMessageCount'); ?>", function(data) {
             //alert(data);
-            if(data.inbox > 0) {
-                $('#counter_inbox').html(data.inbox);
+            if(data.unresponded > 0) {
+                $('#counter_unresponded').html(data.unresponded);
             } else {
-                $('#counter_inbox').html("");
+                $('#counter_unresponded').html("");
             }
 
             if(data.outbox > 0) {

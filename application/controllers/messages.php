@@ -152,7 +152,7 @@ class Messages extends CI_Controller {
         $this->session->keep_flashdata('return_url');
 
         $count           = array();
-        $count['inbox']  = $this->message->getInboxUnreadCount();
+        $count['unresponded']  = $this->message->getUnrespondedContactCount();
         $count['outbox'] = $this->message->getOutgoingCount();
         $count['failed'] = $this->message->getFailedCount();
         header('Content-type: application/json');

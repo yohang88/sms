@@ -130,7 +130,43 @@ class Message extends CI_Model {
 
     public function delete($id){
         $result = $this->db->delete('sms_log', array('id' => $id));
-        if($result){
+        if($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setRespondedContact($number)
+    {
+        $this->db->where('sender', $number);
+        $this->db->where('type', 'RECEIVED');
+
+        $data['flag'] = 'R';
+
+        $result = $this->db->update('sms_log', $data);
+
+        if($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getUnrespondedContactCount()
+    {
+        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = 'RECEIVED' AND `flag` = 'U' GROUP BY sender ";
+        $query = $this->db->query($sql);
+        return $query->num_rows();
+    }
+
+    public function isUnrespondedContact($number)
+    {
+        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = 'RECEIVED' AND `flag` = 'U' AND `sender` = '".$number."' ";
+        $query = $this->db->query($sql);
+        $total = $query->row()->total;
+
+        if($total > 0) {
             return true;
         } else {
             return false;
