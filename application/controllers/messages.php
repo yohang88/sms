@@ -133,7 +133,7 @@ class Messages extends CI_Controller {
 
     public function delete($sms_id)
     {
-        $return_url = $this->session->flashdata('referrer');
+        $return_url = $this->session->flashdata('return_url');
         $result = $this->message->delete($sms_id);
 
         if($result) {
@@ -149,10 +149,12 @@ class Messages extends CI_Controller {
 
     public function getMessageCount()
     {
+        $this->session->keep_flashdata('return_url');
+
         $count           = array();
-        $count['inbox']  = 6;
-        $count['outbox'] = 72;
-        $count['failed'] = 5;
+        $count['inbox']  = $this->message->getInboxUnreadCount();
+        $count['outbox'] = $this->message->getOutgoingCount();
+        $count['failed'] = $this->message->getFailedCount();
         header('Content-type: application/json');
         echo json_encode($count);
     }

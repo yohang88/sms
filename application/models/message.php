@@ -128,12 +128,33 @@ class Message extends CI_Model {
         }
     }
 
-    function delete($id){
+    public function delete($id){
         $result = $this->db->delete('sms_log', array('id' => $id));
         if($result){
             return true;
         } else {
             return false;
         }
+    }
+
+    public function getInboxUnreadCount()
+    {
+        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = 'RECEIVED' AND `flag` IS NULL ";
+        $query = $this->db->query($sql);
+        return $query->row()->total;
+    }
+
+    public function getOutgoingCount()
+    {
+        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = 'OUTGOING' ";
+        $query = $this->db->query($sql);
+        return $query->row()->total;
+    }
+
+    public function getFailedCount()
+    {
+        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = 'FAILED' ";
+        $query = $this->db->query($sql);
+        return $query->row()->total;
     }
 }

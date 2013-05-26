@@ -31,7 +31,7 @@ class Conversation extends CI_Controller {
         $data['with_number'] = $with;
         $data['messages']    = $messages;
 
-        $this->session->set_flashdata('referrer', current_url());
+        $this->session->set_flashdata('return_url', current_url());
 
         $this->load->view('common/header');
         $this->load->view('conversation/view', $data);
