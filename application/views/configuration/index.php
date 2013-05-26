@@ -35,8 +35,18 @@
                 <label class="control-label">Aktifkan Template</label>
                 <div class="controls">
                     <label class="checkbox">
-                    <input type="checkbox"> Aktif
-                </label>
+                    <?php
+                    $form = array(
+                    'name'        => 'signature_active',
+                    'id'          => 'signature_active',
+                    'value'       => '1',
+                    'checked'     => $config->sms_signature_enable
+                    );
+
+                    echo form_checkbox($form);
+                    ?>
+                     Aktif
+                    </label>
                 </div>
                 </div>
 

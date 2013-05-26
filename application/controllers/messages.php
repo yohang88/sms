@@ -8,10 +8,23 @@ class Messages extends CI_Controller {
         $this->user->on_invalid_session('auth');
    }
 
-	public function compose()
+	public function compose($target="")
 	{
+        $target_json = array();
+
+        if(!empty($target)) {
+            $target_name   = $this->contact->getDetail($target);
+            if($target_name) {
+                $target_json[] = array('id' => $target, 'name' => $target_name->name);
+            } else {
+                $target_json[] = array('id' => $target, 'name' => $target);
+            }
+        }
+
+        $data['target_json'] = json_encode($target_json);
+
 		$this->load->view('common/header');
-		$this->load->view('messages/compose');
+		$this->load->view('messages/compose', $data);
 		$this->load->view('common/footer');
 	}
 

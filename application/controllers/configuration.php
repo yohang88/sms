@@ -20,7 +20,8 @@ class Configuration extends CI_Controller {
     public function save()
     {
         $data = array();
-        $data['sms_signature'] = $this->input->post('signature');
+        $data['sms_signature_enable'] = $this->input->post('signature_active');
+        $data['sms_signature']        = $this->input->post('signature');
 
         $result = $this->configurations->save($data);
 

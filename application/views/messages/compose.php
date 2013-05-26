@@ -24,7 +24,8 @@ $(document).ready(function() {
         preventDuplicates: true,
         searchingText: "Sedang mencari dari buku telepon...",
         hintText: "Ketik nama yang akan dimasukkan",
-        noResultsText: "Tidak ditemukan dalam buku telepon"
+        noResultsText: "Tidak ditemukan dalam buku telepon",
+        prePopulate: <?php echo $target_json ?>
     });
 
 	var sms_char;
