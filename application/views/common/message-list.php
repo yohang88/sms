@@ -8,6 +8,7 @@
     <table class="table table-striped table-hover">
     <?php foreach($messages as $message): ?>
     <?php
+        $isUnrespondedContact = '';
         $class_unresponded = '';
         switch($type) {
             case 'sent';
