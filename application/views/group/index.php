@@ -1,7 +1,7 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Kelola Group <small>daftar kontak</small></h1>
+            <h1><i class="icon-group icon-large"></i> Kelola Group</h1>
         </div>
     </div>
 </div>

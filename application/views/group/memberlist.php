@@ -1,7 +1,7 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Daftar Anggota <small>Group</small></h1>
+            <h1><i class="icon-group icon-large"></i> Anggota Group</h1>
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Ubah Data Group <small>buku telepon</small></h1>
+            <h1><i class="icon-group icon-large"></i> Ubah Data Group</h1>
         </div>
     </div>
 </div>
