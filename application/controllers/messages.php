@@ -25,8 +25,7 @@ class Messages extends CI_Controller {
 
         $templates = $this->templates->getItems();
 
-        $templates[] = (object) array("id" => 0, "title" => "Pilih salah satu...", "content" => "");
-        sort($templates);
+        array_unshift($templates, (object) array("id" => 0, "title" => "Pilih salah satu...", "content" => ""));
 
         foreach($templates as $template) {
             $data['templates'][$template->id] = $template->title;
