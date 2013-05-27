@@ -27,7 +27,7 @@ function countChar() {
 <div id="header">
     <div class="container">
         <div class="page-header">
-            <h1>Ubah Data</h1>
+            <h1><i class="icon-wrench icon-large"></i> Pengaturan Template</h1>
         </div>
     </div>
 </div>
