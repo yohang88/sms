@@ -51,7 +51,7 @@ var template_select;
 var template = [];
 <?php
 foreach($js_templates as $key => $value) {
-    echo "template[".$key."] = '".$value."';\n";
+    echo "template[".$key."] = ".json_encode($value).";\n";
 }
 ?>
 
