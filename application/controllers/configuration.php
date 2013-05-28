@@ -41,7 +41,9 @@ class Configuration extends CI_Controller {
         $this->load->dbutil();
         $backup =& $this->dbutil->backup();
         $this->load->helper('download');
-        force_download('mybackup.sql.gz', $backup);
+        $datestamp = date("Y-m-d-His");
+        $filename = "backupsms_" . $datestamp . ".sql.gz";
+        force_download($filename, $backup);
 
         return true;
     }
