@@ -35,4 +35,14 @@ class Configuration extends CI_Controller {
 
         redirect('configuration');
     }
+
+    public function backupDB()
+    {
+        $this->load->dbutil();
+        $backup =& $this->dbutil->backup();
+        $this->load->helper('download');
+        force_download('mybackup.sql.gz', $backup);
+
+        return true;
+    }
 }

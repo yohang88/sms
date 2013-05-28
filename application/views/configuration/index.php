@@ -58,6 +58,16 @@
                 </div>
                 </fieldset>
 
+                <fieldset>
+                <legend>Data</legend>
+                <div class="control-group">
+                <label class="control-label">Backup</label>
+                <div class="controls">
+                    <a href="<?php echo site_url('configuration/backupDB') ?>" class="btn btn-success"><i class="icon-shield"></i> Download Semua Data</a>
+                </div>
+                </div>
+                </fieldset>
+
                 <div class="form-actions">
                 <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Simpan</button>
                 </div>
