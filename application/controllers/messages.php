@@ -23,6 +23,15 @@ class Messages extends CI_Controller {
 
         $data['target_json'] = json_encode($target_json);
 
+        $templates = $this->templates->getItems();
+
+        array_unshift($templates, (object) array("id" => 0, "title" => "Pilih salah satu...", "content" => ""));
+
+        foreach($templates as $template) {
+            $data['templates'][$template->id] = $template->title;
+            $data['js_templates'][$template->id] = $template->content;
+        }
+
 		$this->load->view('common/header');
 		$this->load->view('messages/compose', $data);
 		$this->load->view('common/footer');

@@ -33,16 +33,10 @@ $(document).ready(function() {
 
 	// Character counter
 	$('.word_count').each(function(){
-	text_character = "karakter";
-	text_message = "SMS";
-	var length = $(this).val().length;
-	var message = Math.ceil(length/sms_char);
-	$(this).parent().find('.counter').html( length + ' ' + text_character + ' / ' + message + ' ' + text_message);
-    $(this).keyup(function(){
-        var new_length = $(this).val().length;
-        var message = Math.ceil(new_length/sms_char);
-         $(this).parent().find('.counter').html( new_length + ' ' + text_character + ' / ' + message + ' ' + text_message);
-    });
+        countChar();
+        $(this).keyup(function(){
+            countChar();
+        });
 	});
 
     $("input[name='sendoption']").click(function() {
@@ -50,7 +44,39 @@ $(document).ready(function() {
         if($(this).val()=='sendoption2')  { $("#person").hide(); $("#import").hide(); $("#manually").show();}
         if($(this).val()=='sendoption3')  { $("#person").hide(); $("#import").show(); $("#manually").hide();}
     });
+
 });
+
+var template_select;
+var template = [];
+<?php
+foreach($js_templates as $key => $value) {
+    echo "template[".$key."] = ".json_encode($value).";\n";
+}
+?>
+
+var sms_char;
+sms_char = 160;
+text_character = "karakter";
+text_message = "SMS";
+function countChar() {
+    var new_length = $("#text").val().length;
+    var message = Math.ceil(new_length/sms_char);
+    $("#text").parent().find('.counter').html(new_length + ' ' + text_character + ' / ' + message + ' ' + text_message);
+}
+
+function changeTemplate() {
+    template_select = $("#template").val();
+    $("#template_content").text(template[template_select]);
+};
+
+function submitTemplate() {
+    var box = $("#text");
+    $("#text").val(template[template_select] + box.val());
+    $("#text").autogrow();
+    $('#myModal').modal('toggle');
+    countChar();
+}
 </script>
 
 <div id="header">
@@ -125,13 +151,13 @@ $(document).ready(function() {
                 </div>
 
                 <div class="modal-body">
-                    <?php echo form_open_multipart(site_url('addressbook/import')) ?>
-                    <p>Pilih Template yang akan dimasukkan ke dalam pesan</p>
+                    <p>Pilih Template yang akan dimasukkan ke dalam pesan:</p>
+                    <?php echo form_dropdown('template', $templates, '', 'class="span5" id="template" onChange="changeTemplate();"'); ?>
+                    <p><small id="template_content"></small></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary"><i class="icon-ok-circle"></i> Masukkan ke Pesan</button>
+                    <button type="button" onclick="submitTemplate()" class="btn btn-primary"><i class="icon-ok"></i> Masukkan ke Pesan</button>
                     <button class="btn" data-dismiss="modal">Batal</button>
-                    <?php echo form_close() ?>
                 </div>
                 </div>
 
