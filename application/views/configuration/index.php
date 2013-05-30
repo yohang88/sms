@@ -20,12 +20,12 @@
                 <?php echo validation_errors(); ?>
 
                 <?php $id = @field($this->uri->segment(3, NULL), $this->form_validation->set_value('id'), 'X'); ?>
-                <?php echo form_open('configuration/save', array('class' => 'form-horizontal')); ?>
+                <?php echo form_open_multipart('configuration/save', array('class' => 'form-horizontal')); ?>
 
                 <div class="control-group">
                 <label class="control-label">Logo</label>
                 <div class="controls">
-                    <input type="file" />
+                    <input type="file" name="file_logo" />
                 </div>
                 </div>
 
