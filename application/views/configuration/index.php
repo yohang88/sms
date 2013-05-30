@@ -25,7 +25,8 @@
                 <div class="control-group">
                 <label class="control-label">Logo</label>
                 <div class="controls">
-                    <input type="file" name="file_logo" />
+                    <input type="file" name="file_logo" /><br />
+                    <img style="width: 64px; height: 64px;" src="<?php echo base_url('uploads') . DS . $config->logo_file ?>" />
                 </div>
                 </div>
 
