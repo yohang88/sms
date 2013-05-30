@@ -23,6 +23,18 @@ class Configuration extends CI_Controller {
         $data['sms_signature_enable'] = $this->input->post('signature_active');
         $data['sms_signature']        = $this->input->post('signature');
 
+        $config['upload_path']   = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png';
+
+        $this->load->library('upload', $config);
+
+        if($this->upload->do_upload('file_logo'))
+        {
+            $logo_data = $this->upload->data();
+
+            $data['logo_file'] = $logo_data["file_name"];
+        }
+
         $result = $this->configurations->save($data);
 
         if($result) {
