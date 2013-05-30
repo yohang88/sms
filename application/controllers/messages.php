@@ -94,8 +94,10 @@ class Messages extends CI_Controller {
                 break;
 
             case 'sendoption3':
-                $config['upload_path'] = './uploads/';
+                $config['upload_path']   = './uploads/';
                 $config['allowed_types'] = 'csv';
+                $config['encrypt_name']  = true;
+
                 $this->load->library('upload', $config);
 
                 if ( ! $this->upload->do_upload('import_file'))

@@ -133,8 +133,10 @@ class Addressbook extends CI_Controller {
 
     public function import()
     {
-        $config['upload_path'] = './uploads/';
+        $config['upload_path']   = './uploads/';
         $config['allowed_types'] = 'csv';
+        $config['encrypt_name']  = true;
+
         $this->load->library('upload', $config);
 
         if ( ! $this->upload->do_upload('import_file'))
