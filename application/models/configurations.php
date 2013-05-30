@@ -40,8 +40,8 @@ class Configurations extends CI_Model {
 
     		if(!$result)
     			return false;
-
-            return true;
         }
+
+        return true;
 	}
 }
