@@ -19,12 +19,28 @@ class Home extends CI_Controller {
 
     public function renderStatistic()
     {
+        $num_days = date('t');
+        $days     = array();
+        for($n = 0; $n < $num_days; $n++) {
+            $days[] = $n+1;
+        }
+
+        $inbox     = array();
+        $outbox    = array();
+        $failed    = array();
+
+        for($n = 0; $n < $num_days; $n++) {
+            $inbox[$n] = $this->message->getStatistic('RECEIVED', $n+1);
+            $outbox[$n] = $this->message->getStatistic('SENT', $n+1);
+            $failed[$n] = $this->message->getStatistic('FAILED', $n+1);
+        }
+
         require_once ('application/libraries/jpgraph/jpgraph.php');
         require_once ('application/libraries/jpgraph/jpgraph_line.php');
 
-        $datay1 = array(20,15,23,15,20,20,20,50);
-        $datay2 = array(12,9,42,8,50,20,23,75);
-        $datay3 = array(5,17,32,24,22,66,4,22);
+        $datay1 = $inbox;
+        $datay2 = $outbox;
+        $datay3 = $failed;
 
         // Setup the graph
         $graph = new Graph(700,400);
@@ -34,7 +50,7 @@ class Home extends CI_Controller {
 
         $graph->SetTheme($theme_class);
         $graph->img->SetAntiAliasing(false);
-        // $graph->title->Set('Statistik SMS');
+        $graph->title->Set('Statistik SMS');
         $graph->SetBox(false);
 
         $graph->img->SetAntiAliasing();
@@ -45,25 +61,22 @@ class Home extends CI_Controller {
 
         $graph->xgrid->Show();
         $graph->xgrid->SetLineStyle("solid");
-        $graph->xaxis->SetTickLabels(array('21','22','23','24','25','26','27','28'));
+        $graph->xaxis->SetTickLabels($days);
         $graph->xgrid->SetColor('#E3E3E3');
 
-        // Create the first line
         $p1 = new LinePlot($datay1);
         $graph->Add($p1);
-        $p1->SetColor("#6495ED");
-        $p1->SetLegend('Pesan Masuk');
+        $p1->SetColor("#00CE00");
+        $p1->SetLegend('Masuk');
 
-        // Create the second line
         $p2 = new LinePlot($datay2);
         $graph->Add($p2);
-        $p2->SetColor("#B22222");
-        $p2->SetLegend('Pesan Terkirim');
+        $p2->SetColor("#001AFF");
+        $p2->SetLegend('Terkirim');
 
-        // Create the third line
         $p3 = new LinePlot($datay3);
         $graph->Add($p3);
-        $p3->SetColor("#FF1493");
+        $p3->SetColor("#FF0035");
         $p3->SetLegend('Gagal Terkirim');
 
         $graph->legend->SetFrameWeight(1);

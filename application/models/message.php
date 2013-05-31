@@ -213,4 +213,16 @@ class Message extends CI_Model {
         $query = $this->db->query($sql);
         return $query->row()->total;
     }
+
+    public function getStatistic($type, $day)
+    {
+        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = '".$type."' AND DAY(sent) = ".$day." GROUP BY `TYPE`, DATE(sent) ";
+
+        $query = $this->db->query($sql);
+        if($query->num_rows() > 0) {
+            return $query->row()->total;
+        } else {
+            return 0;
+        }
+    }
 }
