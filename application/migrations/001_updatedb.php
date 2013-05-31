@@ -19,15 +19,19 @@ class Migration_UpdateDB extends CI_Migration {
         $this->dbforge->create_table('config');
 
         $data = array(
-           array(
-              'key' => 'sms_signature',
-              'params' => 'mySMS Center'
-              ),
-           array(
-              'key' => 'sms_signature_enable',
-              'params' => '0'
-              )
-           );
+            array(
+                'key' => 'sms_signature',
+                'params' => 'mySMS Center'
+                ),
+            array(
+                'key' => 'sms_signature_enable',
+                'params' => '0'
+                ),
+            array(
+                'key' => 'logo_file',
+                'params' => 'logo.png'
+                )
+            );
 
         $this->db->insert_batch('config', $data);
 
@@ -58,15 +62,15 @@ class Migration_UpdateDB extends CI_Migration {
         $this->dbforge->create_table('templates');
 
         $data = array(
-           array(
-              'title' => "Terimakasih Saran dan Kritik",
-              'content' => "Terimakasih banyak atas saran dan kritik yang Anda berikan. Kami akan segera menindaklanjuti hal tersebut."
-              ),
-           array(
-              'title' => "Pemberitahuan",
-              'content' => "Dengan ini kami memberitahukan bahwa kami akan menyelenggarakan kegiatan [Nama Kegiatan] pada [Hari], [Tanggal] dan bertempat di [Lokasi]. Kami mengharapkan partisipasi dari Anda.\n\nTerimakasih banyak."
-              )
-           );
+            array(
+                'title' => "Terimakasih Saran dan Kritik",
+                'content' => "Terimakasih banyak atas saran dan kritik yang Anda berikan. Kami akan segera menindaklanjuti hal tersebut."
+                ),
+            array(
+                'title' => "Pemberitahuan",
+                'content' => "Dengan ini kami memberitahukan bahwa kami akan menyelenggarakan kegiatan [Nama Kegiatan] pada [Hari], [Tanggal] dan bertempat di [Lokasi]. Kami mengharapkan partisipasi dari Anda.\n\nTerimakasih banyak."
+                )
+            );
 
         $this->db->insert_batch('templates', $data);
     }
