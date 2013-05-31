@@ -12,10 +12,14 @@
             <div class="span3">
             <?php $this->load->view('common/sidebar'); ?>
             </div>
-            <div class="span9" style="text-align: center">
-                 <img style="width: 64px; height: 64px;" src="<?php echo base_url('uploads') . DS . $config->logo_file ?>" />
-             <?php $this->load->view('home/statistic'); ?>
-             </div>
+            <div class="span9">
+                <img style="width: 64px; height: 64px; float:left; margin-right: 20px" src="<?php echo base_url('uploads') . DS . $config->logo_file ?>" />
+                <h4>SMS Center</h4>
+                <p>Versi 1.0</p>
+                <div class="statistic">
+                <?php $this->load->view('home/statistic'); ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>
