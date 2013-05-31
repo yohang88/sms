@@ -184,8 +184,4 @@ class Messages extends CI_Controller {
         echo json_encode($count);
     }
 
-    public function statistic()
-    {
-
-    }
 }

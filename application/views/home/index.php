@@ -13,8 +13,8 @@
             <?php $this->load->view('common/sidebar'); ?>
             </div>
             <div class="span9" style="text-align: center">
-                 <img style="width: 256px; height: 256px;" src="<?php echo base_url('uploads') . DS . $config->logo_file ?>" />
-             <?php // $this->load->view('home/statistic'); ?>
+                 <img style="width: 64px; height: 64px;" src="<?php echo base_url('uploads') . DS . $config->logo_file ?>" />
+             <?php $this->load->view('home/statistic'); ?>
              </div>
         </div>
     </div>
