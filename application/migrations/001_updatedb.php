@@ -29,7 +29,7 @@ class Migration_UpdateDB extends CI_Migration {
                 ),
             array(
                 'key' => 'logo_file',
-                'params' => 'logo.png'
+                'params' => 'null'
                 )
             );
 
