@@ -216,7 +216,7 @@ class Message extends CI_Model {
 
     public function getStatistic($type, $day)
     {
-        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = '".$type."' AND DAY(sent) = ".$day." GROUP BY `TYPE`, DATE(sent) ";
+        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = '".$type."' AND DAY(sent) = ".$day." AND MONTH(sent) = MONTH(NOW()) GROUP BY `TYPE`, DATE(sent) ";
 
         $query = $this->db->query($sql);
         if($query->num_rows() > 0) {
