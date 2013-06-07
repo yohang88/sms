@@ -149,6 +149,7 @@ class Addressbook extends CI_Controller {
             $this->load->library('csvreader');
             $filePath = $data["full_path"];
 
+            ini_set('auto_detect_line_endings',TRUE);
             $csvData = $this->csvreader->parse_file($filePath, true);
 
             foreach($csvData as $row)
