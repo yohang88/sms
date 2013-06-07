@@ -5,11 +5,11 @@ class Reminders extends CI_Model {
     public function getList($offset=0, $limit=20, $search="")
     {
         $sql = "
-            SELECT a.id, name, IFNULL((SELECT COUNT(*) FROM sms_contactgroup b WHERE b.id_group = a.id GROUP BY b.id_group),0) as membercount
-            FROM sms_groups a ";
+            SELECT *
+            FROM sms_reminders ";
 
         if(!empty($search)) {
-            $sql .= " WHERE name LIKE '%".$search."%' ";
+            $sql .= " WHERE name LIKE '%".$search."%' OR receiver LIKE '%".$search."%' ";
         }
 
         $sql .=  "ORDER BY name ASC
@@ -25,15 +25,15 @@ class Reminders extends CI_Model {
         }
     }
 
-    public function getGroupCount($search="")
+    public function getTotal($search="")
     {
         $sql = "
             SELECT COUNT(*) AS total
-            FROM sms_groups a
+            FROM sms_reminders
         ";
 
         if(!empty($search)) {
-            $sql .= " WHERE name LIKE '%".$search."%' ";
+            $sql .= " WHERE name LIKE '%".$search."%' OR receiver LIKE '%".$search."%' ";
         }
 
         $query = $this->db->query($sql);
@@ -41,32 +41,11 @@ class Reminders extends CI_Model {
         return $query->row()->total;
     }
 
-    function getMemberList($group_id, $offset=0, $limit=20)
-    {
-        $sql = "
-            SELECT b.id, b.name, b.primary
-            FROM sms_contactgroup a
-            JOIN sms_contacts b ON a.id_contact = b.id
-            JOIN sms_groups c ON a.id_group = c.id
-            WHERE a.id_group = ".$group_id."
-            ORDER BY b.name ASC
-            LIMIT ".$offset.",".$limit."
-        ";
-
-        $query = $this->db->query($sql);
-
-        if($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return array();
-        }
-    }
-
     public function getDetail($id)
     {
         $sql = "
             SELECT *
-            FROM sms_groups
+            FROM sms_reminders
             WHERE `id` = '".$id."'
         ";
 
@@ -79,14 +58,14 @@ class Reminders extends CI_Model {
     }
 
 	function add($data) {
-		$this->db->insert('sms_groups', array('id' => NULL) );
+		$this->db->insert('sms_reminders', array('id' => NULL) );
 		$id = $this->db->insert_id();
 		return $this->edit($id, $data);
 	}
 
 	function edit($id, $data) {
 		$this->db->where('id', $id);
-		$result = $this->db->update('sms_groups', $data);
+		$result = $this->db->update('sms_reminders', $data);
 
 		if($result) {
 			return $id;
@@ -96,13 +75,17 @@ class Reminders extends CI_Model {
 	}
 
 	function delete($id) {
-		$result = $this->db->delete('sms_groups', array('id' => $id));
-        $result_member = $this->db->delete('sms_contactgroup', array('id_group' => $id));
+		$result = $this->db->delete('sms_reminders', array('id' => $id));
 
-		if($result && $result_member) {
+		if($result) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+
+    function importCSV($data)
+    {
+        return $this->db->insert('sms_reminders', $data);
+    }
 }

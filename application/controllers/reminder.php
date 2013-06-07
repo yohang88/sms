@@ -13,19 +13,19 @@ class Reminder extends CI_Controller {
         $this->load->library('pagination');
 
         $per_page             = $this->config->item('pagination_page_limit');
-        $contacts             = $this->contact->getList($offset, $per_page);
-        $contact_total        = (int) $this->contact->getTotal();
+        $reminders            = $this->reminders->getList($offset, $per_page);
+        $reminder_total       = (int) $this->reminders->getTotal();
 
-        $config['base_url']   = site_url('addressbook/index');
-        $config['total_rows'] = $contact_total;
+        $config['base_url']   = site_url('reminder/index');
+        $config['total_rows'] = $reminder_total;
         $config['per_page']   = $per_page;
 
         $this->pagination->initialize($config);
 
-        $data['contacts']     = $contacts;
+        $data['reminders']    = $reminders;
 
 		$this->load->view('common/header');
-		$this->load->view('addressbook/index', $data);
+		$this->load->view('reminder/index', $data);
 		$this->load->view('common/footer');
 	}
 
@@ -37,7 +37,7 @@ class Reminder extends CI_Controller {
         }
 
         if(empty($search)) {
-            redirect('addressbook');
+            redirect('reminder');
         }
 
         $data['search'] = $search;
@@ -45,39 +45,36 @@ class Reminder extends CI_Controller {
         $this->load->library('pagination');
 
         $per_page              = $this->config->item('pagination_page_limit');
-        $contacts              = $this->contact->getList($offset, $per_page, $search);
-        $contact_total         = (int) $this->contact->getTotal($search);
+        $reminders             = $this->reminders->getList($offset, $per_page, $search);
+        $reminder_total        = (int) $this->reminders->getTotal($search);
 
-        $config['base_url']    = site_url('addressbook/search/'.$search);
+        $config['base_url']    = site_url('reminder/search/'.$search);
         $config['uri_segment'] = 4;
-        $config['total_rows']  = $contact_total;
+        $config['total_rows']  = $reminder_total;
         $config['per_page']    = $per_page;
 
         $this->pagination->initialize($config);
 
-        $data['contacts']     = $contacts;
+        $data['reminders']     = $reminders;
 
         $this->load->view('common/header');
-        $this->load->view('addressbook/index', $data);
+        $this->load->view('reminder/index', $data);
         $this->load->view('common/footer');
     }
 
     public function add()
     {
-        $data['groups'] = json_encode($this->contactgroup->getUserGroup());
-
 		$this->load->view('common/header');
-		$this->load->view('addressbook/form-contact', $data);
+		$this->load->view('reminder/form-reminder');
 		$this->load->view('common/footer');
     }
 
     public function edit($id)
     {
-        $data['detail'] = $this->contact->getDetail($id);
-        $data['groups'] = json_encode($this->contactgroup->getUserGroup($id));
+        $data['detail'] = $this->reminders->getDetail($id);
 
 		$this->load->view('common/header');
-		$this->load->view('addressbook/form-contact', $data);
+		$this->load->view('reminder/form-reminder', $data);
 		$this->load->view('common/footer');
     }
 
@@ -85,7 +82,7 @@ class Reminder extends CI_Controller {
     {
         $id = $this->input->post('id');
         $this->form_validation->set_rules('name', 'Nama', 'trim|required');
-        $this->form_validation->set_rules('primary', 'Nomor Utama', 'trim|required');
+        $this->form_validation->set_rules('receiver', 'Nomor', 'trim|required');
         $this->form_validation->set_error_delimiters('<div class="important">', '</div>');
 
         if ($this->form_validation->run() == FALSE){
@@ -95,30 +92,26 @@ class Reminder extends CI_Controller {
               return $this->add();
             }
         } else {
-            $data              = array();
-            $data['name']      = $this->input->post('name');
-            $data['primary']   = $this->input->post('primary');
-            $data['alternate'] = $this->input->post('alternate');
-            $data['address']   = $this->input->post('address');
-            $data['email']     = $this->input->post('email');
-            $data['group']     = $this->input->post('group');
+            $data             = array();
+            $data['name']     = $this->input->post('name');
+            $data['receiver'] = $this->input->post('receiver');
 
             if($id == 'X'){
-              $id = $this->contact->add($data);
+              $id = $this->reminders->add($data);
             } else {
-              $this->contact->edit($id, $data);
+              $this->reminders->edit($id, $data);
             }
 
             $this->session->set_flashdata('notif_type', 'success');
             $this->session->set_flashdata('notif_text', 'Data berhasil disimpan');
 
-            redirect('addressbook/edit/'.$id);
+            redirect('reminder/edit/'.$id);
         }
     }
 
     public function delete($user_id)
     {
-        $result = $this->contact->delete($user_id);
+        $result = $this->reminders->delete($user_id);
 
         if($result) {
             $this->session->set_flashdata('notif_type', 'info');
@@ -128,7 +121,7 @@ class Reminder extends CI_Controller {
             $this->session->set_flashdata('notif_text', 'Data gagal dihapus');
         }
 
-        redirect('addressbook');
+        redirect('reminder');
     }
 
     public function import()
@@ -154,13 +147,12 @@ class Reminder extends CI_Controller {
 
             foreach($csvData as $row)
             {
-                $data              = array();
-                $data['name']      = $row["Name"];
-                $data['primary']   = $row["Number"];
-                $data['alternate'] = $row["Alternate"];
-                $data['address']   = $row["Address"];
-                $data['email']     = $row["Email"];
-                $result = $this->contact->importCSV($data);
+                $data             = array();
+                $data['name']     = trim($row["Name"]);
+                $data['receiver'] = $row["Number"];
+                $data['datedue']  = $row["Date"];
+
+                $result = $this->reminders->importCSV($data);
             }
 
             $this->session->set_flashdata('notif_type', 'success');
@@ -168,7 +160,7 @@ class Reminder extends CI_Controller {
         }
 
 
-        redirect('addressbook');
+        redirect('reminder');
     }
 
 }
