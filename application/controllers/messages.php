@@ -85,9 +85,11 @@ class Messages extends CI_Controller {
                 $numbers = explode(',', $numbers);
 
                 foreach($numbers as $number) {
-                    $result = $this->message->sendsms(trim($number), $text, $datetime);
-                    if(!$result) {
-                        break;
+                    if(!empty($number)) {
+                        $result = $this->message->sendsms(trim($number), $text, $datetime);
+                        if(!$result) {
+                            break;
+                        }
                     }
                 }
 
@@ -131,9 +133,11 @@ class Messages extends CI_Controller {
                 $numbers = explode(',', $numbers);
 
                 foreach($numbers as $number) {
-                    $result = $this->message->sendsms(trim($number), $text, $datetime);
-                    if(!$result) {
-                        break;
+                    if(!empty($number)) {
+                        $result = $this->message->sendsms(trim($number), $text, $datetime);
+                        if(!$result) {
+                            break;
+                        }
                     }
                 }
 

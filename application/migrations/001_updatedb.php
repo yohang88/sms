@@ -69,6 +69,10 @@ class Migration_UpdateDB extends CI_Migration {
             array(
                 'title' => "Pemberitahuan",
                 'content' => "Dengan ini kami memberitahukan bahwa kami akan menyelenggarakan kegiatan [Nama Kegiatan] pada [Hari], [Tanggal] dan bertempat di [Lokasi]. Kami mengharapkan partisipasi dari Anda.\n\nTerimakasih banyak."
+                ),
+            array(
+                'title' => "Template Reminder",
+                'content' => "Yth. [Nama], Ini adalah pesan pengingat otomatis. Pembayaran Anda akan jatuh tempo pada [Tanggal]."
                 )
             );
 

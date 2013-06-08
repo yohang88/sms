@@ -117,7 +117,7 @@ class Contact extends CI_Model {
 
     function importCSV($data)
     {
-        return $this->db->insert('sms_contacts', $data);
+        return $this->db->replace_into('sms_contacts', $data);
     }
 
 	function delete($id) {

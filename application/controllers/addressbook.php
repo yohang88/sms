@@ -160,13 +160,11 @@ class Addressbook extends CI_Controller {
                 $data['alternate'] = $row["Alternate"];
                 $data['address']   = $row["Address"];
                 $data['email']     = $row["Email"];
-                $result = $this->contact->importCSV($data);
-                // var_dump($result);
-                //if(!$result) {
-                    //break;
-                //}
+
+                if(!empty($row["Number"]) && !empty($row["Name"])) {
+                    $result = $this->contact->importCSV($data);
+                }
             }
-            // exit;
 
             $this->session->set_flashdata('notif_type', 'success');
             $this->session->set_flashdata('notif_text', 'Data berhasil diimpor');
