@@ -58,7 +58,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	var $ar_cache_having		= array();
 	var $ar_cache_orderby		= array();
 	var $ar_cache_set			= array();
-	
+
 	var $ar_no_escape 			= array();
 	var $ar_cache_no_escape     = array();
 
@@ -426,7 +426,7 @@ class CI_DB_active_record extends CI_DB_driver {
 
 					$v = ' '.$this->escape($v);
 				}
-				
+
 				if ( ! $this->_has_operator($k))
 				{
 					$k .= ' = ';
@@ -660,7 +660,7 @@ class CI_DB_active_record extends CI_DB_driver {
 			$prefix = (count($this->ar_like) == 0) ? '' : $type;
 
 			$v = $this->escape_like_str($v);
-			
+
 			if ($side == 'none')
 			{
 				$like_statement = $prefix." $k $not LIKE '{$v}'";
@@ -1090,6 +1090,53 @@ class CI_DB_active_record extends CI_DB_driver {
 
 		return TRUE;
 	}
+
+
+	// --------------------------------------------------------------------
+
+    /**
+     * Replace into
+     *
+     * Compiles an insert into string and runs the query
+     *
+     * @access    public
+     * @param    string    the table name
+     * @param    array    the update data
+     * @return    object
+     */
+    function replace_into($table = '', $set = NULL){
+         $this->_merge_cache();
+         if( $set !== NULL )
+             $this->set($set);
+        if (count($this->ar_set) == 0)
+        {
+            if ($this->db_debug)
+            {
+                return $this->display_error('db_must_use_set');
+            }
+            return FALSE;
+        }
+        if ($table == '')
+        {
+            if ( ! isset($this->ar_from[0]))
+            {
+                if ($this->db_debug)
+                {
+                    return $this->display_error('db_must_set_table');
+                }
+                return FALSE;
+            }
+
+            $table = $this->ar_from[0];
+        }
+
+        $sql = $this->_replace_into(
+            $this->_protect_identifiers($table, TRUE, NULL, FALSE),
+            $this->ar_set);
+
+        $this->_reset_write();
+        return $this->query($sql);
+    }
 
 	// --------------------------------------------------------------------
 
