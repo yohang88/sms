@@ -9,10 +9,12 @@ class Reminders extends CI_Model {
             FROM sms_reminders ";
 
         if(!empty($search)) {
-            $sql .= " WHERE name LIKE '%".$search."%' OR receiver LIKE '%".$search."%' ";
+            $sql .= " WHERE (name LIKE '%".$search."%' OR receiver LIKE '%".$search."%') AND DATE(datedue) >= DATE(NOW())";
+        } else {
+            $sql .= " WHERE DATE(datedue) >= DATE(NOW()) ";
         }
 
-        $sql .=  "ORDER BY name ASC
+        $sql .=  "ORDER BY datedue ASC
                   LIMIT ".$offset.",".$limit."
         ";
 
@@ -33,7 +35,9 @@ class Reminders extends CI_Model {
         ";
 
         if(!empty($search)) {
-            $sql .= " WHERE name LIKE '%".$search."%' OR receiver LIKE '%".$search."%' ";
+            $sql .= " WHERE (name LIKE '%".$search."%' OR receiver LIKE '%".$search."%') AND DATE(datedue) >= DATE(NOW())";
+        } else {
+            $sql .= " WHERE DATE(datedue) >= DATE(NOW()) ";
         }
 
         $query = $this->db->query($sql);
@@ -86,6 +90,19 @@ class Reminders extends CI_Model {
 
     function importCSV($data)
     {
-        return $this->db->insert('sms_reminders', $data);
+        return $this->db->replace_into('sms_reminders', $data);
+    }
+
+    public function cronGetReminders()
+    {
+        $sql = "
+            SELECT *
+            FROM sms_reminders
+            WHERE DATE(datedue) = DATE(NOW())
+        ";
+
+        $query = $this->db->query($sql);
+
+        return $query;
     }
 }

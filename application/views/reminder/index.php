@@ -45,7 +45,7 @@
                 <button class="btn" data-dismiss="modal">Batal</button>
                 <?php echo form_close() ?>
             </div>
-            </div>
+        </div>
 
         <?php $this->load->view('common/notif_area'); ?>
 
@@ -53,13 +53,13 @@
             <table class="table table-striped table-hover table-condensed">
                 <thead>
                     <tr>
-                       <th>Nama</th>
-                       <th class="right">Nomor Utama</th>
-                       <th class="right">Tanggal</th>
-                       <th></th>
-                   </tr>
-               </thead>
-               <tbody>
+                     <th>Nama</th>
+                     <th class="right">Nomor Utama</th>
+                     <th class="right">Tanggal</th>
+                     <th></th>
+                 </tr>
+             </thead>
+             <tbody>
                 <?php foreach($reminders as $reminder): ?>
                 <tr>
                     <td><?php echo $reminder->name ?></td>

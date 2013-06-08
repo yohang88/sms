@@ -6,10 +6,12 @@ $(document).ready(function() {
 
     var img_path = '<?php echo base_url(); ?>assets/img/';
     $(".datepicker").datepicker({
-        minDate: 0, maxDate: '+1Y',
+        changeMonth: true,
+        changeYear: true,
+        minDate: 0,
         dateFormat: 'yy-mm-dd', showOn: 'button', buttonImage: img_path + 'calendar.gif', buttonImageOnly: false
     });
-
+    $(".datepicker").datepicker( "setDate", "<?php echo @field(set_value('datedue'), $detail->datedue) ?>" );
     $(".ui-datepicker-trigger").addClass('btn');
 });
 </script>
@@ -52,7 +54,7 @@ $(document).ready(function() {
                 <label class="control-label">Tanggal</label>
                 <div class="controls">
                 <div class="input-append">
-                    <input name="date" type="text" placeholder="Tanggal" id="date" class="datepicker span3" />
+                    <input name="datedue" type="text" placeholder="Tanggal" id="datedue" class="datepicker span3" />
                 </div>
                 </div>
                 </div>

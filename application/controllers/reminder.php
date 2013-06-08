@@ -95,8 +95,9 @@ class Reminder extends CI_Controller {
             $data             = array();
             $data['name']     = $this->input->post('name');
             $data['receiver'] = $this->input->post('receiver');
+            $data['datedue']  = $this->input->post('datedue');
 
-            if($id == 'X'){
+            if($id == 'X') {
               $id = $this->reminders->add($data);
             } else {
               $this->reminders->edit($id, $data);
