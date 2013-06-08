@@ -52,7 +52,8 @@ class Templates extends CI_Model {
 
     public function getItem($id)
     {
-        $query = $this->buildQuery();
+        $sql = " SELECT * FROM sms_templates WHERE id = ".$id;
+        $query = $this->db->query($sql);
 
         if($query->num_rows() > 0) {
             return $query->row();

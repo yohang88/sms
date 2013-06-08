@@ -9,9 +9,9 @@ class Reminders extends CI_Model {
             FROM sms_reminders ";
 
         if(!empty($search)) {
-            $sql .= " WHERE (name LIKE '%".$search."%' OR receiver LIKE '%".$search."%') AND DATE(datedue) >= DATE(NOW())";
+            $sql .= " WHERE (name LIKE '%".$search."%' OR receiver LIKE '%".$search."%') AND DATE(datedue) >= DATE(NOW()) AND flag = 'U' ";
         } else {
-            $sql .= " WHERE DATE(datedue) >= DATE(NOW()) ";
+            $sql .= " WHERE DATE(datedue) >= DATE(NOW()) AND flag = 'U' ";
         }
 
         $sql .=  "ORDER BY datedue ASC
@@ -35,9 +35,9 @@ class Reminders extends CI_Model {
         ";
 
         if(!empty($search)) {
-            $sql .= " WHERE (name LIKE '%".$search."%' OR receiver LIKE '%".$search."%') AND DATE(datedue) >= DATE(NOW())";
+            $sql .= " WHERE (name LIKE '%".$search."%' OR receiver LIKE '%".$search."%') AND DATE(datedue) >= DATE(NOW()) AND flag = 'U' ";
         } else {
-            $sql .= " WHERE DATE(datedue) >= DATE(NOW()) ";
+            $sql .= " WHERE DATE(datedue) >= DATE(NOW()) AND flag = 'U' ";
         }
 
         $query = $this->db->query($sql);
@@ -98,7 +98,8 @@ class Reminders extends CI_Model {
         $sql = "
             SELECT *
             FROM sms_reminders
-            WHERE DATE(datedue) = DATE(NOW())
+            WHERE DATE(datedue) <= DATE(NOW())
+            AND flag = 'U'
         ";
 
         $query = $this->db->query($sql);

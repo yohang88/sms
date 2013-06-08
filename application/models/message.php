@@ -195,7 +195,7 @@ class Message extends CI_Model {
 
     public function getOutgoingCount()
     {
-        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = 'OUTGOING' ";
+        $sql = " SELECT COUNT(*) AS total FROM sms_log WHERE `type` = 'QUEUE' ";
         $query = $this->db->query($sql);
         return $query->row()->total;
     }
