@@ -76,8 +76,13 @@ class Migration_UpdateDB extends CI_Migration {
 
 
         // Reminder Table
-        $this->dbforge->add_field('id');
         $this->dbforge->add_field(array(
+            'id' => array(
+                 'type' => 'INT',
+                 'constraint' => 11,
+                 'unsigned' => TRUE,
+                 'auto_increment' => TRUE
+                ),
             'name' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '200'
@@ -94,6 +99,10 @@ class Migration_UpdateDB extends CI_Migration {
                 'constraint' => '1'
                 )
             ));
+
+        $this->dbforge->add_key('id');
+        $this->dbforge->add_key('receiver', TRUE);
+        $this->dbforge->add_key('datedue', TRUE);
 
         $this->dbforge->create_table('reminders');
     }
