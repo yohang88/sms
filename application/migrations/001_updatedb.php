@@ -96,7 +96,8 @@ class Migration_UpdateDB extends CI_Migration {
                 ),
             'flag' => array(
                 'type' => 'VARCHAR',
-                'constraint' => '1'
+                'constraint' => '1',
+                'default' => 'U'
                 )
             ));
 
