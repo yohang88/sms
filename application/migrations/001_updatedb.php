@@ -73,12 +73,45 @@ class Migration_UpdateDB extends CI_Migration {
             );
 
         $this->db->insert_batch('templates', $data);
+
+
+        // Reminder Table
+        $this->dbforge->add_field(array(
+            'id' => array(
+                 'type' => 'INT',
+                 'constraint' => 11,
+                 'unsigned' => TRUE,
+                 'auto_increment' => TRUE
+                ),
+            'name' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '200'
+                ),
+            'receiver' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '50'
+                ),
+            'datedue' => array(
+                'type' => 'DATE'
+                ),
+            'flag' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '1'
+                )
+            ));
+
+        $this->dbforge->add_key('id');
+        $this->dbforge->add_key('receiver', TRUE);
+        $this->dbforge->add_key('datedue', TRUE);
+
+        $this->dbforge->create_table('reminders');
     }
 
     public function down()
     {
         $this->dbforge->drop_table('config');
         $this->dbforge->drop_table('templates');
+        $this->dbforge->drop_table('reminders');
         $this->dbforge->drop_column('log', 'flag');
     }
 

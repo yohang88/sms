@@ -10,6 +10,7 @@
         <li class="<?php echo active_link('addressbook'); ?>"><a href="<?php echo site_url('addressbook'); ?>"><i class="icon-user"></i> Buku Telepon</a></li>
         <li class="<?php echo active_link('group'); ?>"><a href="<?php echo site_url('group'); ?>"><i class="icon-group"></i> Group</a></li>
         <li class="<?php echo active_link('template'); ?>"><a href="<?php echo site_url('template'); ?>"><i class="icon-star"></i> Pengaturan Template</a></li>
+        <li class="<?php echo active_link('reminder'); ?>"><a href="<?php echo site_url('reminder'); ?>"><i class="icon-star"></i> Pengingat Otomatis</a></li>
         <li class="<?php echo active_link('configuration'); ?>"><a href="<?php echo site_url('configuration'); ?>"><i class="icon-wrench"></i> Pengaturan Umum</a></li>
         <li><a href="<?php echo site_url('auth/logout'); ?>"><i class="icon-signout"></i> Log out Pengguna</a></li -->
     </ul>
